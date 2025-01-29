@@ -5,6 +5,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Prueba/pom.xml" />
+        <option value="$PROJECT_DIR$/Ejercicio_Autowired_SpringBoot/pom.xml" />
+        <option value="$PROJECT_DIR$/Ejercicio_Basico_SpringBoot/pom.xml" />
+        <option value="$PROJECT_DIR$/Crud_Basico_Spring/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
