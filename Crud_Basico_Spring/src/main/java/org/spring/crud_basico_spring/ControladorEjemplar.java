@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ejemplares")
 @CacheConfig(cacheNames = {"ejemplares"}) //Recuerda que se pone entre llaves dandole valor a la propiedad cachesNames
 public class ControladorEjemplar {
-        EjemplarRepository ejemplarRepository; //Este atributo ya lo he comentado en otras clases pero básicamente es el DAOEjemplar que teníamos en PHP o en JDBC, es decir, nos habilita los metodos necesario para manejar y que las modificaciones que hacemos a través del código persistan.
-
+    EjemplarRepository ejemplarRepository; //Este atributo ya lo he comentado en otras clases pero básicamente es el DAOEjemplar que teníamos en PHP o en JDBC, es decir, nos habilita los metodos necesario para manejar y que las modificaciones que hacemos a través del código persistan.
+    LibroRepository libroRepository;
     //Constructores:
 
     public ControladorEjemplar() {
     }
 
     @Autowired
-    public ControladorEjemplar(EjemplarRepository ejemplarRepository) {
+    public ControladorEjemplar(EjemplarRepository ejemplarRepository, LibroRepository libroRepository) {
         this.ejemplarRepository = ejemplarRepository;
+        this.libroRepository = libroRepository;
     }
 
     //Metodos que pasamos en la URL HTTP:
@@ -40,6 +41,7 @@ public class ControladorEjemplar {
 
     @PostMapping
     public ResponseEntity<Ejemplar> addEjemplar(/*@Valid*/ @RequestBody Ejemplar ejemplar) {
+        /*this.libroRepository.findById(ejemplar.getIsbn().getIsbn());*/
         Ejemplar ejemplarPersistido = this.ejemplarRepository.save(ejemplar);
         return ResponseEntity.ok(ejemplarPersistido);
     }

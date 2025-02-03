@@ -43,7 +43,7 @@ public class ControladorUsuario {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> addUsuario(@Valid @RequestBody Usuario usuario) {
+        public ResponseEntity<Usuario> addUsuario(@Valid @RequestBody Usuario usuario) {
         Usuario usuarioPersistido = this.usuarioRepository.save(usuario);
         return ResponseEntity.ok(usuarioPersistido);
     }
@@ -59,4 +59,5 @@ public class ControladorUsuario {
         this.usuarioRepository.deleteById(id);
         return ResponseEntity.ok("Usuario con id: " + id + " eliminado"); //Como se puede apreciar aquí siempre se devuelve el mismo tipo de objeto que el del parametro de clase.
     }
+    //Crear un metodo que se llame en el post para validar DNI
 }
