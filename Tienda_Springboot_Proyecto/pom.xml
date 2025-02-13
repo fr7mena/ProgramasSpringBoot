@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.spring</groupId>
-    <artifactId>Trabajo_Tienda_SpringBoot</artifactId>
+    <artifactId>Tienda_Springboot_Proyecto</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Trabajo_Tienda_SpringBoot</name>
-    <description>Trabajo_Tienda_SpringBoot</description>
+    <name>Tienda_Springboot_Proyecto</name>
+    <description>Tienda_Springboot_Proyecto</description>
     <url/>
     <licenses>
         <license/>
@@ -50,10 +50,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>26.0.1</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
     </dependencies>
 
