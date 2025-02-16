@@ -1,6 +1,5 @@
-package org.spring.tienda_springboot_proyecto.Service;
+package org.spring.trabajo_mejorado_tienda.Service;
 
-import org.spring.tienda_springboot_proyecto.Model.Cliente;
 import org.spring.tienda_springboot_proyecto.Model.Producto;
 import org.spring.tienda_springboot_proyecto.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Service //Ojo hay que poner el @Service porque si no no funciona el @Autowired
 public class ProductoService {
-
     private ProductoRepository productoRepository;
 
     @Autowired
@@ -36,16 +34,6 @@ public class ProductoService {
 
     //Insert Into:
     public Producto addProducto(Producto producto) {
-        Double precio = producto.getPrecio().doubleValue(); //Para pasar un BigDecimal a un Double
-        String descripcion = producto.getDescripcion();
-        if (precio < 10) {
-            producto.setDescripcion(descripcion + " !PRODUCTO EN OFERTA¡");
-            return productoRepository.save(producto);
-        }
-        if (precio > 200) {
-            producto.setDescripcion(descripcion + " !PRODUCTO DE CALIDAD¡");
-            return productoRepository.save(producto);
-        }
         return this.productoRepository.save(producto);
     }
 
