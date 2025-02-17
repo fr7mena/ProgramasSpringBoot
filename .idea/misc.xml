@@ -11,10 +11,13 @@
         <option value="$PROJECT_DIR$/Trabajo_Tienda_SpringBoot/pom.xml" />
         <option value="$PROJECT_DIR$/Tienda_Springboot_Proyecto/pom.xml" />
         <option value="$PROJECT_DIR$/Trabajo_Mejorado_Tienda/pom.xml" />
+        <option value="$PROJECT_DIR$/Prectica_Examen_Tienda/pom.xml" />
+        <option value="$PROJECT_DIR$/Practica_Examen_Tienda/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/Prectica_Examen_Tienda/pom.xml" />
         <option value="$PROJECT_DIR$/Prueba/pom.xml" />
       </set>
     </option>

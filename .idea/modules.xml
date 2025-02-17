@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Prectica_Examen_Tienda/Prectica_Examen_Tienda.iml" filepath="$PROJECT_DIR$/Prectica_Examen_Tienda/Prectica_Examen_Tienda.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ProgramasSpringBoot.iml" filepath="$PROJECT_DIR$/.idea/ProgramasSpringBoot.iml" />
       <module fileurl="file://$PROJECT_DIR$/Trabajo_Tienda_SpringBoot/Trabajo_Tienda_SpringBoot.iml" filepath="$PROJECT_DIR$/Trabajo_Tienda_SpringBoot/Trabajo_Tienda_SpringBoot.iml" />
     </modules>
