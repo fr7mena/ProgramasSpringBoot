@@ -33,6 +33,7 @@ public class Historial {
 
     @Column(name = "fecha_compra", nullable = false)
     @NotNull
+    @PastOrPresent
     private LocalDate fechaCompra;
 
     @ColumnDefault("1")

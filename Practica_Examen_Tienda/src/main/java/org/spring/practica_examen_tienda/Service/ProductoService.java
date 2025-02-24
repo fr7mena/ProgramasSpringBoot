@@ -37,13 +37,17 @@ public class ProductoService {
     //Insert Into
     public Producto addProducto(Producto producto) {
         Double precio = producto.getPrecio().doubleValue();
-        if (precio < 10) {
-            producto.setDescripcion(producto.getDescripcion() + ", ¡PRODUCTO EN OFERTA!");
+        String descripcion = producto.getDescripcion();
+
+        if (precio < 10 && !descripcion.contains("¡PRODUCTO EN OFERTA!")) {
+            descripcion += ", ¡PRODUCTO EN OFERTA!";
         }
 
-        if (precio > 200) {
-            producto.setDescripcion(producto.getDescripcion() + ", ¡PRODUCTO DE CALIDAD!");
+        if (precio > 200 && !descripcion.contains("¡PRODUCTO DE CALIDAD!")) {
+            descripcion += ", ¡PRODUCTO DE CALIDAD!";
         }
+
+        producto.setDescripcion(descripcion);
         return this.productoRepository.save(producto);
     }
 

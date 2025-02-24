@@ -53,7 +53,7 @@ public class Cliente {
     private String domicilio;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonIgnoreProperties({"cliente"}) // IMPORTANTISIMO PARA EVITAR LAS DEPENDENCIAS CIRCULARES, ADEMAS RECUERDO UN POCO SU FUNCIONAMINETO, SE PONE EL ATRIBUTO QUE QUIERO QUE SE IGNORE CUANDO LLAMO A UN ATRIBUTO CORRESPONDIENTE A OTRA CLASE, EN ESTE CASO YO LO QUE QUIERO ES QUE EN LA CLASE HISTORIAL NO SE ME LLAME A ESTE ATRIBUTO HISTORIALS DE LA CLASE CLIENTE, POR ELLO EN LA CLASE HISTORIAL LE DIRE QUE EL ATRIBUTO DE ESTA CLASE QUE NO QUIERO QUE SE ME MUESTRE SEA HISTORIALS
+    @JsonIgnoreProperties({"cliente"}) // IMPORTANTISIMO PARA EVITAR LAS DEPENDENCIAS CIRCULARES, cuando en la clase de Historial llega al cliente para deserializarlo, esta propiedad evita que se imprimam este atributo historials al que le pongo @JsonIgnoreProperties({"cliente"})
     private Set<org.spring.practica_examen_tienda.Model.Historial> historials = new LinkedHashSet<>();
 
     public Integer getId() {
