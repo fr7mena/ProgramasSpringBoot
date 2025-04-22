@@ -1,4 +1,4 @@
-package org.spring.tienda_springboot_proyecto;
+package org.spring.examen_fabio_rama_mena;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
