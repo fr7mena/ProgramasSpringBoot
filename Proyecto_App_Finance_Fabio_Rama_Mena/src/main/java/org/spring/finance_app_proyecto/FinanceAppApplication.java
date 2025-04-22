@@ -1,13 +1,13 @@
-package org.spring.practica_examen_tienda;
+package org.spring.finance_app_proyecto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PracticaExamenTiendaApplication {
+public class FinanceAppApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PracticaExamenTiendaApplication.class, args);
+        SpringApplication.run(FinanceAppApplication.class, args);
     }
 
 }

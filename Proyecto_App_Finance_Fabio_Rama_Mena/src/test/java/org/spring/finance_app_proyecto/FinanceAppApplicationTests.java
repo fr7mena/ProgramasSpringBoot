@@ -1,10 +1,10 @@
-package org.spring.practica_examen_tienda;
+package org.spring.finance_app_proyecto;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PracticaExamenTiendaApplicationTests {
+class FinanceAppApplicationTests {
 
     @Test
     void contextLoads() {
