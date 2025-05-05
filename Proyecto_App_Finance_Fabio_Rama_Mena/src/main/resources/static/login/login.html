@@ -1,0 +1,26 @@
+<!-- File: src/main/resources/static/login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar sesión</title>
+  <script defer src="login.js"></script>
+</head>
+<body>
+<h2>Login</h2>
+<form id="loginForm">
+  <label for="name">Nombre:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="password">Contraseña:</label>
+  <input type="password" id="password" name="password" required>
+
+  <button type="submit">Iniciar sesión</button>
+</form>
+<div id="loginMessage"></div>
+<div>
+  ¿No tienes cuenta? <a href="../register/register.html">Regístrate aquí</a>
+</div>
+</body>
+</html>
+
