@@ -1,5 +1,4 @@
 // File: src/main/resources/static/dashboard/dashboard.js
-
 window.addEventListener('DOMContentLoaded', async () => {
     // Verificar sesión activa
     const response = await fetch('/api/users/session', {
@@ -10,7 +9,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const welcomeMessage = document.getElementById('welcomeMessage');
 
     if (response.ok) {
-        welcomeMessage.textContent = `Bienvenido, usuario ID: ${data.userId}`;
+        welcomeMessage.textContent = `Bienvenido, ${data.userName} (ID: ${data.userId}, Email: ${data.userEmail})`; // Usamos el nombre del usuario
     } else {
         window.location.href = '../login/login.html';
     }
@@ -36,3 +35,5 @@ document.getElementById('confirmLogout').addEventListener('click', async () => {
         alert('Error cerrando sesión');
     }
 });
+
+

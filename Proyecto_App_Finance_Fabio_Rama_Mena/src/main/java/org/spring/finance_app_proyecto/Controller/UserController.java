@@ -1,10 +1,10 @@
 // File: src/main/java/org/spring/finance_app_proyecto/Controller/UserController.java
-
 package org.spring.finance_app_proyecto.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.spring.finance_app_proyecto.DTO.LoginDTO;
-import org.spring.finance_app_proyecto.DTO.UserDTO;
+import org.spring.finance_app_proyecto.DTO.UserDTO; // Importar UserDTO para el registro
+import org.spring.finance_app_proyecto.DTO.UserDashDTO; // Importar UserDashDTO para el login
 import org.spring.finance_app_proyecto.Model.User;
 import org.spring.finance_app_proyecto.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +42,11 @@ public class UserController {
         }
 
         // 💡 Guardamos info útil en la sesión
-        session.setAttribute("userId", user.getId()); // suponiendo que hay un getId()
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("userName", user.getName()); // Guardamos el nombre del usuario
+        session.setAttribute("userEmail", user.getEmail());
 
-        return ResponseEntity.ok(new UserDTO(user));
+        return ResponseEntity.ok(new UserDashDTO(user)); // Usamos UserDashDTO
     }
 
     // POST /api/users/register
@@ -66,7 +68,12 @@ public class UserController {
         if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "No hay sesión activa"));
         }
-        return ResponseEntity.ok(Map.of("userId", userId));
+        Map<String, Object> sessionData = Map.of(
+                "userId", userId,
+                "userName", session.getAttribute("userName"),
+                "userEmail", session.getAttribute("userEmail")
+        );
+        return ResponseEntity.ok(sessionData);
     }
 
     @PostMapping("/logout")
@@ -74,5 +81,4 @@ public class UserController {
         session.invalidate();
         return ResponseEntity.ok(Map.of("message", "Sesión cerrada"));
     }
-
 }
