@@ -1,11 +1,23 @@
+<!-- File: src/main/resources/static/dashboard/dashboard.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <script defer src="dashboard.js"></script>
 </head>
 <body>
 <h1>Bienvenido al Dashboard</h1>
-<p>Has iniciado sesión correctamente.</p>
+<p id="welcomeMessage">Cargando usuario...</p>
+
+<!-- Botón para logout -->
+<button id="logoutButton">Cerrar sesión</button>
+
+<!-- Modal de logout -->
+<div id="logoutModal" style="display:none; position:fixed; top:30%; left:40%; background:#fff; padding:1rem; border:1px solid #ccc;">
+    <p>¿Seguro que deseas cerrar sesión?</p>
+    <button id="confirmLogout">Sí</button>
+    <button id="cancelLogout">No</button>
+</div>
 </body>
 </html>

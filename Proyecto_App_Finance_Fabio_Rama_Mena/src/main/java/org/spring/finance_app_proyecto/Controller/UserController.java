@@ -2,6 +2,7 @@
 
 package org.spring.finance_app_proyecto.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.spring.finance_app_proyecto.DTO.LoginDTO;
 import org.spring.finance_app_proyecto.DTO.UserDTO;
 import org.spring.finance_app_proyecto.Model.User;
@@ -27,7 +28,7 @@ public class UserController {
 
     // POST /api/users/login
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO, HttpSession session) {
         Optional<User> optionalUser = userService.findByName(loginDTO.getName());
 
         if (optionalUser.isEmpty()) {
@@ -39,6 +40,9 @@ public class UserController {
         if (!user.getPasswordHash().equals(loginDTO.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Contraseña incorrecta"));
         }
+
+        // 💡 Guardamos info útil en la sesión
+        session.setAttribute("userId", user.getId()); // suponiendo que hay un getId()
 
         return ResponseEntity.ok(new UserDTO(user));
     }
@@ -55,4 +59,20 @@ public class UserController {
         User savedUser = userService.save(userDTO.toEntity());
         return ResponseEntity.ok(new UserDTO(savedUser));
     }
+
+    @GetMapping("/session")
+    public ResponseEntity<?> getSessionUser(HttpSession session) {
+        Object userId = session.getAttribute("userId");
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "No hay sesión activa"));
+        }
+        return ResponseEntity.ok(Map.of("userId", userId));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok(Map.of("message", "Sesión cerrada"));
+    }
+
 }
