@@ -58,6 +58,7 @@ public class TransactionController {
         List<TransactionCreateDTO> transactionDTOs = transactions.stream()
                 .map(transaction -> {
                     TransactionCreateDTO transactionDTO = new TransactionCreateDTO();
+                    transactionDTO.setId(transaction.getId()); // Copia el ID
                     transactionDTO.setType(transaction.getType());
                     transactionDTO.setAmount(transaction.getAmount());
                     transactionDTO.setCategory(transaction.getCategory());

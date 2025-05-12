@@ -4,11 +4,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class TransactionCreateDTO {
+    private Integer id; // Añade el ID
     private String type;
     private BigDecimal amount;
     private String category;
     private String description;
     private LocalDate transactionDate;
+
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
