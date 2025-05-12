@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -51,8 +52,22 @@ public class TransactionController {
         }
 
         Integer userId = (Integer) userIdObj;
-        List<Transaction> result = transactionService.findByFilter(userId, dto.getType(), dto.getCategory(), dto.getStartDate(), dto.getEndDate());
-        return ResponseEntity.ok(result);
+        List<Transaction> transactions = transactionService.findByFilter(userId, dto.getType(), dto.getCategory(), dto.getStartDate(), dto.getEndDate());
+
+        // Convertimos la lista de Transaction a una lista de TransactionCreateDTO
+        List<TransactionCreateDTO> transactionDTOs = transactions.stream()
+                .map(transaction -> {
+                    TransactionCreateDTO transactionDTO = new TransactionCreateDTO();
+                    transactionDTO.setType(transaction.getType());
+                    transactionDTO.setAmount(transaction.getAmount());
+                    transactionDTO.setCategory(transaction.getCategory());
+                    transactionDTO.setDescription(transaction.getDescription());
+                    transactionDTO.setTransactionDate(transaction.getTransactionDate());
+                    return transactionDTO;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(transactionDTOs); // Devolvemos la lista de TransactionCreateDTO
     }
 
     @PostMapping("/delete")

@@ -1,10 +1,28 @@
-<!-- File: src/main/resources/static/transaction_management/remove_Transactions.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Transacciones</title>
     <script defer src="remove_Transactions.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .delete-checkbox {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
 <h1>Eliminar Transacciones</h1>
@@ -29,11 +47,26 @@
 </form>
 
 <br>
-<form id="deleteForm" style="display:none;">
-    <label for="transactionsSelect">Selecciona transacciones para eliminar:</label><br>
-    <select id="transactionsSelect" multiple size="10" style="width: 300px;"></select><br><br>
-    <button type="submit">Eliminar seleccionadas</button>
-</form>
+<div id="transactionsTableContainer" style="display:none;">
+    <h2>Selecciona transacciones para eliminar:</h2>
+    <form id="deleteForm">
+        <table>
+            <thead>
+            <tr>
+                <th>Seleccionar</th>
+                <th>Fecha</th>
+                <th>Cantidad (€)</th>
+                <th>Categoría</th>
+                <th>Descripción</th>
+            </tr>
+            </thead>
+            <tbody id="transactionsTableBody">
+            </tbody>
+        </table>
+        <br>
+        <button type="submit">Eliminar seleccionadas</button>
+    </form>
+</div>
 
 <br>
 <button onclick="window.location.href='transaction_management.html'">Volver</button>
