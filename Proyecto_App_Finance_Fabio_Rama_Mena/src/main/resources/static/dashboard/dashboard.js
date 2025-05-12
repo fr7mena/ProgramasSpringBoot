@@ -10,6 +10,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     if (response.ok) {
         welcomeMessage.textContent = `Bienvenido, ${data.userName} (ID: ${data.userId}, Email: ${data.userEmail})`; // Usamos el nombre del usuario
+        // Guardar los datos del usuario en localStorage
+        localStorage.setItem('userName', data.userName);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userEmail', data.userEmail);
     } else {
         window.location.href = '../login/login.html';
     }
@@ -30,10 +34,11 @@ document.getElementById('confirmLogout').addEventListener('click', async () => {
     });
 
     if (response.ok) {
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userEmail');
         window.location.href = '../login/login.html';
     } else {
         alert('Error cerrando sesión');
     }
 });
-
-
