@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -75,5 +76,40 @@ public class TransactionController {
     public ResponseEntity<?> deleteTransactions(@RequestBody List<Integer> ids) {
         transactionService.deleteByIds(ids);
         return ResponseEntity.ok(Map.of("message", "Transacciones eliminadas"));
+    }
+
+    @GetMapping("/balance")
+    public ResponseEntity<?> getUserBalance(HttpSession session) {
+        Integer userId = getUserIdFromSession(session);
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Usuario no autenticado"));
+        }
+        BigDecimal balance = transactionService.getUserBalance(userId);
+        return ResponseEntity.ok(Map.of("balance", balance));
+    }
+
+    @GetMapping("/latest-transactions")
+    public ResponseEntity<?> getLast10Transactions(HttpSession session) {
+        Integer userId = getUserIdFromSession(session);
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Usuario no autenticado"));
+        }
+        List<TransactionCreateDTO> lastTransactions = transactionService.getLast10Transactions(userId);
+        return ResponseEntity.ok(lastTransactions);
+    }
+
+    @PostMapping("/filter-dashboard")
+    public ResponseEntity<?> getFilteredTransactionsDashboard(@RequestBody TransactionFilterDTO filterDTO, HttpSession session) {
+        Integer userId = getUserIdFromSession(session);
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Usuario no autenticado"));
+        }
+        List<TransactionCreateDTO> filteredTransactions = transactionService.getFilteredTransactions(userId, filterDTO);
+        return ResponseEntity.ok(filteredTransactions); // Ahora devolvemos List<TransactionCreateDTO>
+    }
+
+    private Integer getUserIdFromSession(HttpSession session) {
+        Object userIdObj = session.getAttribute("userId");
+        return userIdObj instanceof Integer ? (Integer) userIdObj : null;
     }
 }
