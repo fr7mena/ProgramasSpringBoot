@@ -1,8 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     const createStockForm = document.getElementById('createStockForm');
+    const messageDisplay = document.getElementById('messageDisplay'); // Nuevo elemento para mostrar mensajes
+
+    // Función para mostrar mensajes en la página
+    function showMessage(message, isError = false) {
+        // Asegurarse de que messageDisplay no sea null antes de intentar usarlo
+        if (messageDisplay) {
+            messageDisplay.textContent = message;
+            messageDisplay.style.color = isError ? 'red' : 'green';
+            messageDisplay.style.display = 'block'; // Asegurarse de que el mensaje sea visible
+        } else {
+            console.error('Error: El elemento messageDisplay no se encontró en el DOM.');
+            // Fallback a alert si el elemento no se encuentra, aunque no es lo deseado
+            alert(message);
+        }
+    }
 
     createStockForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+
+        // Limpiar mensajes anteriores si el elemento existe
+        if (messageDisplay) {
+            messageDisplay.textContent = '';
+            messageDisplay.style.display = 'none';
+        }
 
         // Obtener los valores de los campos del formulario
         const ticker = document.getElementById('ticker').value;
@@ -34,14 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Manejar la respuesta del servidor
             if (response.ok) {
-                alert(responseData.message + ". ID de la acción creada: " + responseData.stockId);
-                window.location.href = 'dashboard_stock.html'; // Redirigir a la página de éxito
+                showMessage(responseData.message /*+ ". ID de la acción creada: " + responseData.stockId, false*/);
+                // Opcional: Redirigir después de un breve retraso para que el usuario vea el mensaje
+                setTimeout(() => {
+                    window.location.href = 'dashboard_stock.html';
+                }, 2000); // Redirige después de 2 segundos
             } else {
-                alert('Error al crear la acción: ' + responseData.error); // Mostrar mensaje de error
+                showMessage('Error al crear la acción: ' + responseData.error, true); // Mostrar mensaje de error
             }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error);
-            alert('Ocurrió un error al crear la acción. Por favor, inténtalo de nuevo.'); // Mostrar error genérico
+            showMessage('Ocurrió un error al crear la acción. Por favor, inténtalo de nuevo.', true); // Mostrar error genérico
         }
     });
 });

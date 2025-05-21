@@ -4,39 +4,46 @@
     <meta charset="UTF-8">
     <title>Introduce una acción:</title>
     <script defer src="creation_Stocks.js"></script>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-        }
-        form label {
-            margin-bottom: 5px;
-        }
-        form input {
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        form button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 10px;
-        }
-        form button:hover {
-            background-color: #367c39;
-        }
+    <style> /* Corregido: La etiqueta <style> debe estar dentro de <head> y después de <script> o en su propio bloque */
+    body {
+        font-family: sans-serif;
+        margin: 20px;
+    }
+    h1 {
+        color: #333;
+    }
+    form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+    }
+    form label {
+        margin-bottom: 5px;
+    }
+    form input {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+    form button {
+        padding: 10px 15px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+    }
+    form button:hover {
+        background-color: #367c39;
+    }
+    #messageDisplay { /* Estilos para el nuevo div de mensajes */
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        display: none; /* Oculto por defecto */
+    }
     </style>
 </head>
 <body>
@@ -58,7 +65,7 @@
     <button type="submit">Guardar Acción</button>
 </form>
 
-<br>
+<div id="messageDisplay"></div> <br>
 <button onclick="window.location.href='dashboard_stock.html'">Volver a Gestión de Compra de Acciones</button>
 </body>
 </html>

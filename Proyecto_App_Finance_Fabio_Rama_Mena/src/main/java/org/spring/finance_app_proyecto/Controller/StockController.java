@@ -29,8 +29,8 @@ public class StockController {
         try {
             StockCreateDTO createdStockDto = stockService.createStock(dto, userId); // Llama al servicio para crear el Stock
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                    "message", "Acción creada correctamente",
-                    "stockId", createdStockDto // Devuelve el DTO con el ID
+                    "message", "Acción creada correctamente"
+                    /*"stockId", createdStockDto // Devuelve el DTO con el ID*/
             ));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
