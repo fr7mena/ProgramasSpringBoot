@@ -1,6 +1,6 @@
 // File: src/main/resources/static/dashboard/dashboard.js
+
 window.addEventListener('DOMContentLoaded', async () => {
-    // Verificar sesión activa
     const response = await fetch('/api/users/session', {
         credentials: 'include'
     });
@@ -9,8 +9,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const welcomeMessage = document.getElementById('welcomeMessage');
 
     if (response.ok) {
-        welcomeMessage.textContent = `Bienvenido, ${data.userName} (ID: ${data.userId}, Email: ${data.userEmail})`; // Usamos el nombre del usuario
-        // Guardar los datos del usuario en localStorage
+        welcomeMessage.textContent = `Bienvenido, ${data.userName} (ID: ${data.userId}, Email: ${data.userEmail})`;
         localStorage.setItem('userName', data.userName);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('userEmail', data.userEmail);

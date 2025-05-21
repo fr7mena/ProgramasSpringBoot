@@ -8,9 +8,22 @@
 <body>
 <h1>Bienvenido al Dashboard</h1>
 <p id="welcomeMessage">Cargando usuario...</p>
-<button id="transactionManagement" onclick="window.location.href = '../transaction_management/transaction_management.html'">Gestión de Transacciones</button>
-<button id="logoutButton">Cerrar sesión</button>
 
+<!-- Navegación principal -->
+<button id="transactionManagement" onclick="window.location.href = '../transaction_management/transaction_management.html'">
+    Gestión de Transacciones
+</button>
+
+<button id="stockManagement" onclick="window.location.href = '../stock_management/dashboard_stock.html'">
+    Gestión de Compra de Acciones
+</button>
+
+<button id="stockSellManagement" onclick="window.location.href = '../stock_management_sales/dashboard_stock_sales.html'">
+    Gestión de Venta de Acciones
+</button>
+
+<!-- Cierre de sesión -->
+<button id="logoutButton">Cerrar sesión</button>
 <div id="logoutModal" style="display:none; position:fixed; top:30%; left:40%; background:#fff; padding:1rem; border:1px solid #ccc;">
     <p>¿Seguro que deseas cerrar sesión?</p>
     <button id="confirmLogout">Sí</button>
