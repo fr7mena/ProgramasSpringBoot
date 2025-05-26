@@ -1,3 +1,4 @@
+// File: src/main/java/org/spring/finance_app_proyecto/DTO/StockCreateDTO.java
 package org.spring.finance_app_proyecto.DTO;
 
 import java.math.BigDecimal;
@@ -6,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class StockCreateDTO {
+    private Integer id; // Añadido el ID para poder devolverlo en las consultas de visualización
     @Size(max = 10)
     @NotNull
     private String ticker;
@@ -18,6 +20,15 @@ public class StockCreateDTO {
 
     @NotNull
     private LocalDate purchaseDate;
+
+    // Getter y Setter para 'id'
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTicker() {
         return ticker;
