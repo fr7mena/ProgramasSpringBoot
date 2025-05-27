@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Integer> {
@@ -19,4 +20,7 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
     List<Stock> findByUserId(Integer userId);
 
     List<Stock> findByUserIdOrderByPurchaseDateDesc(Integer userId, Pageable topTen);
+    Optional<Stock> findByIdAndUserId(Integer id, Integer userId); // ¡Este método sí existe!
+
+    List<Stock> findByUserIdAndTickerContainingIgnoreCase(Integer userId, String ticker);
 }
