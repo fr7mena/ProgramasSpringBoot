@@ -3,6 +3,7 @@ package org.spring.finance_app_proyecto.Service;
 import org.spring.finance_app_proyecto.DTO.StockCreateDTO;
 import org.spring.finance_app_proyecto.DTO.StockSaleRequestDTO;
 import org.spring.finance_app_proyecto.DTO.StockSaleResponseDTO;
+import org.spring.finance_app_proyecto.DTO.UserSalesSummaryDTO; // Nuevo DTO
 import org.spring.finance_app_proyecto.Model.Stock;
 import org.spring.finance_app_proyecto.Model.StockSale;
 import org.spring.finance_app_proyecto.Repository.SaleStockRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode; // Para redondear porcentajes
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +27,7 @@ public class SaleStockService {
     @Autowired
     private SaleStockRepository saleStockRepository;
 
-    // Método para obtener stocks por ticker para la venta (ya existente)
+    // Método para obtener stocks por ticker para la venta (sin cambios)
     public List<StockCreateDTO> getStocksByTickerForSale(Integer userId, String ticker) {
         List<Stock> stocks = stockRepository.findByUserIdAndTickerContainingIgnoreCase(userId, ticker);
         return stocks.stream()
@@ -34,7 +36,7 @@ public class SaleStockService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional // (sin cambios)
     public StockSaleResponseDTO registerStockSale(StockSaleRequestDTO requestDTO, Integer userId) {
         // 1. Validar y obtener el stock original
         Stock stockToUpdate = stockRepository.findByIdAndUserId(requestDTO.getStockId(), userId)
@@ -86,39 +88,89 @@ public class SaleStockService {
      * Obtiene una lista de ventas de acciones para un usuario,
      * opcionalmente filtradas por ticker y/o fecha de venta.
      * Si no se aplican filtros, se devuelven las últimas 10 ventas.
+     * Adicionalmente, calcula el total de ganancia/pérdida y el porcentaje.
      *
      * @param userId El ID del usuario actual.
      * @param ticker El ticker de la acción para filtrar (opcional, puede ser null o vacío).
      * @param sellDate La fecha de venta para filtrar (opcional, puede ser null).
-     * @return Una lista de StockSaleResponseDTO que representan las ventas filtradas.
+     * @return Un UserSalesSummaryDTO que contiene la lista de ventas y los totales.
      */
-    public List<StockSaleResponseDTO> getFilteredUserSales(Integer userId, String ticker, LocalDate sellDate) {
+    public UserSalesSummaryDTO getFilteredUserSalesSummary(Integer userId, String ticker, LocalDate sellDate) {
         List<StockSale> sales;
 
         boolean hasTicker = ticker != null && !ticker.trim().isEmpty();
         boolean hasSellDate = sellDate != null;
 
         if (hasTicker && hasSellDate) {
-            // Filtrar por ticker y fecha de venta
             sales = saleStockRepository.findByUserIdAndStockTickerContainingIgnoreCaseAndSellDate(userId, ticker, sellDate);
         } else if (hasTicker) {
-            // Filtrar solo por ticker
             sales = saleStockRepository.findByUserIdAndStockTickerContainingIgnoreCase(userId, ticker);
         } else if (hasSellDate) {
-            // Filtrar solo por fecha de venta
             sales = saleStockRepository.findByUserIdAndSellDate(userId, sellDate);
         } else {
-            // Si no hay filtros, obtener las últimas 10 ventas del usuario
             sales = saleStockRepository.findTop10ByUserIdOrderBySellDateDescCreatedAtDesc(userId);
         }
 
         // Mapear las entidades StockSale a DTOs de respuesta
-        return sales.stream()
+        List<StockSaleResponseDTO> salesDTOs = sales.stream()
                 .map(this::convertToStockSaleResponseDTO)
                 .collect(Collectors.toList());
+
+        // Calcular el total de ganancia/pérdida y el porcentaje
+        BigDecimal totalGainLoss = BigDecimal.ZERO;
+        BigDecimal totalPurchaseValue = BigDecimal.ZERO; // Valor total de compra de las acciones vendidas
+        BigDecimal totalSellValue = BigDecimal.ZERO;     // Valor total de venta de las acciones vendidas
+
+        for (StockSaleResponseDTO saleDTO : salesDTOs) {
+            totalGainLoss = totalGainLoss.add(saleDTO.getTotalGainLoss());
+
+            // Recalcular los valores de compra y venta para el porcentaje
+            // Para esto, necesitamos el precio de compra original por acción
+            // y el precio de venta por acción de cada StockSale.
+            // Esto se obtiene al momento de convertir StockSale a StockSaleResponseDTO
+            // donde calculamos totalPurchaseCost y totalSellRevenue.
+            // Aquí podemos sumar los valores de cada DTO si ya los hemos mapeado.
+            // Para evitar recalcularlo, podríamos añadir el totalPurchaseCost y totalSellRevenue
+            // al StockSaleResponseDTO si fueran necesarios, pero el ejercicio pide el porcentaje
+            // del TOTAL de ganancias/pérdidas.
+
+            // Para el porcentaje, necesitamos el costo total de las acciones vendidas.
+            // Para obtenerlo de forma precisa, iteramos sobre las entidades StockSale (no los DTOs convertidos)
+            // o hacemos los cálculos en el convertToStockSaleResponseDTO y los acumulamos.
+            // La forma más eficiente es acumularlos en la misma iteración que se calculó el totalGainLoss.
+        }
+
+        // Una forma más limpia de calcular los totales para el porcentaje:
+        BigDecimal aggregatedTotalPurchaseValue = BigDecimal.ZERO;
+        BigDecimal aggregatedTotalSellValue = BigDecimal.ZERO;
+
+        for (StockSale sale : sales) {
+            BigDecimal purchaseCostPerShare = sale.getStock().getPurchasePrice();
+            BigDecimal sellRevenuePerShare = sale.getSellPrice();
+
+            BigDecimal saleTotalPurchaseCost = purchaseCostPerShare.multiply(BigDecimal.valueOf(sale.getQuantity()));
+            BigDecimal saleTotalSellRevenue = sellRevenuePerShare.multiply(BigDecimal.valueOf(sale.getQuantity()));
+
+            aggregatedTotalPurchaseValue = aggregatedTotalPurchaseValue.add(saleTotalPurchaseCost);
+            aggregatedTotalSellValue = aggregatedTotalSellValue.add(saleTotalSellRevenue);
+        }
+
+
+        BigDecimal percentageGainLoss = BigDecimal.ZERO;
+        // Calcular el porcentaje solo si hay un valor de compra total para evitar división por cero
+        if (aggregatedTotalPurchaseValue.compareTo(BigDecimal.ZERO) != 0) {
+            // Fórmula: ((Valor Total de Venta - Valor Total de Compra) / Valor Total de Compra) * 100
+            percentageGainLoss = (aggregatedTotalSellValue.subtract(aggregatedTotalPurchaseValue))
+                    .divide(aggregatedTotalPurchaseValue, 4, RoundingMode.HALF_UP) // 4 decimales para precisión
+                    .multiply(BigDecimal.valueOf(100));
+        }
+
+
+        return new UserSalesSummaryDTO(salesDTOs, totalGainLoss, percentageGainLoss);
     }
 
     // Nuevo método auxiliar para convertir Stock a StockCreateDTO (para el endpoint de búsqueda de stocks para vender)
+    // (sin cambios)
     private StockCreateDTO convertToStockCreateDTO(Stock stock) {
         StockCreateDTO dto = new StockCreateDTO();
         dto.setId(stock.getId());
@@ -129,7 +181,7 @@ public class SaleStockService {
         return dto;
     }
 
-    // Método auxiliar para convertir StockSale a StockSaleResponseDTO (para el historial de ventas)
+    // Método auxiliar para convertir StockSale a StockSaleResponseDTO (sin cambios relevantes en la lógica)
     private StockSaleResponseDTO convertToStockSaleResponseDTO(StockSale stockSale) {
         // Para calcular la ganancia/pérdida, necesitamos el precio de compra del stock original.
         // Accedemos a él a través de la relación ManyToOne de StockSale con Stock.

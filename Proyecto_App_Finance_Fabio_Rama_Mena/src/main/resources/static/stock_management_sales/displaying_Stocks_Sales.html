@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html lang="es">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Historial de Ventas de Acciones</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Ventas de Acciones</title>
     <link rel="stylesheet" href="/css/styles.css"> <style>
     /* Estilos básicos para la tabla y el formulario, puedes integrarlos en tu styles.css si quieres */
     body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
@@ -67,6 +63,20 @@
         background-color: #007bff;
         color: white;
     }
+    .summary-section {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border: 1px solid #ced4da;
+    }
+    .summary-item {
+        margin-bottom: 8px;
+        font-size: 1.1em;
+    }
+    .summary-item span {
+        font-weight: bold;
+    }
     .message {
         margin-top: 20px;
         padding: 10px;
@@ -98,6 +108,8 @@
     .return-button:hover {
         background-color: #5a6268;
     }
+    .profit { color: green; font-weight: bold; }
+    .loss { color: red; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -117,6 +129,12 @@
         <button id="filterButton">Actualizar Tabla</button>
     </div>
 
+    <div class="summary-section">
+        <h2>Resumen de Ganancias/Pérdidas</h2>
+        <div class="summary-item">Ganancia/Pérdida Total: <span id="totalGainLossDisplay">0.00 €</span></div>
+        <div class="summary-item">Porcentaje de Ganancia/Pérdida: <span id="percentageGainLossDisplay">0.00 %</span></div>
+    </div>
+
     <div class="table-section">
         <h2>Ventas Filtradas</h2>
         <table id="salesTable">
@@ -126,7 +144,7 @@
                 <th>Cantidad Vendida</th>
                 <th>Precio de Venta (€)</th>
                 <th>Fecha de Venta</th>
-                <th>Ganancia/Pérdida Total (€)</th>
+                <th>Ganancia/Pérdida por Venta (€)</th>
             </tr>
             </thead>
             <tbody id="salesTableBody">
@@ -139,9 +157,4 @@
 </div>
 
 <script src="/stock_management_sales/displaying_Stocks_Sales.js"></script> </body>
-</html></title>
-</head>
-<body>
-
-</body>
 </html>
