@@ -1,0 +1,348 @@
+/* src/main/resources/static/css/styles.css */
+
+/* --- Reset Básico y Variables CSS --- */
+:root {
+    --primary-color: #007bff; /* Azul vibrante */
+    --primary-dark: #0056b3;  /* Azul más oscuro para hover */
+    --secondary-color: #6c757d; /* Gris para botones secundarios/volver */
+    --secondary-dark: #5a6268; /* Gris más oscuro para hover */
+    --success-color: #28a745; /* Verde para éxito */
+    --success-light: #d4edda; /* Fondo suave para mensajes de éxito */
+    --success-dark: #155724;  /* Texto oscuro para mensajes de éxito */
+    --danger-color: #dc3545;  /* Rojo para errores/peligro */
+    --danger-light: #f8d7da;  /* Fondo suave para mensajes de error */
+    --danger-dark: #721c24;   /* Texto oscuro para mensajes de error */
+    --warning-color: #ffc107; /* Amarillo para advertencias */
+    --info-color: #17a2b8;    /* Cian para información */
+    --text-color-dark: #333;  /* Color de texto principal */
+    --text-color-light: #f8f9fa; /* Color de texto claro (para fondos oscuros) */
+    --bg-light: #f4f4f4;      /* Fondo general de la página */
+    --bg-white: #fff;         /* Fondo de contenedores principales */
+    --border-color: #ddd;     /* Color de borde general */
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra estándar */
+    --font-family: 'Arial', sans-serif;
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    background-color: var(--bg-light);
+    color: var(--text-color-dark);
+    line-height: 1.6;
+}
+
+/* --- Contenedor Principal --- */
+.container {
+    max-width: 960px; /* Ancho máximo estándar para el contenido */
+    margin: 40px auto; /* Centrar y añadir espacio superior/inferior */
+    background: var(--bg-white);
+    padding: 30px; /* Aumentar padding para mejor espaciado */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* --- Títulos --- */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-dark); /* Un color que se relacione con el azul primario */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.75em; }
+
+/* --- Formularios y Campos de Entrada --- */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block; /* Cada label en su propia línea */
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text-color-dark);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px; /* Aumentar padding */
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    color: var(--text-color-dark);
+    background-color: var(--bg-white);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra de enfoque azul suave */
+    outline: none; /* Quitar el contorno predeterminado del navegador */
+}
+
+/* --- Botones --- */
+.btn {
+    display: inline-block;
+    padding: 12px 25px; /* Más padding para botones */
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    border: none; /* Por defecto sin borde para botones principales */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-dark);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--text-color-light);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-dark);
+}
+
+/* Estilos específicos para botones de enlace (como "Volver") */
+.return-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.return-button:hover {
+    background-color: var(--secondary-dark);
+}
+
+/* --- Tablas --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--bg-white);
+    border-radius: 5px;
+    overflow: hidden; /* Asegura que los bordes redondeados se apliquen bien */
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 12px; /* Más padding para celdas */
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    font-weight: bold;
+    text-transform: uppercase; /* Hacer el texto de los encabezados en mayúsculas */
+}
+
+tr:nth-child(even) { /* Filas pares con un fondo ligeramente diferente */
+    background-color: #f8f8f8;
+}
+
+tr:hover { /* Resaltar fila al pasar el ratón */
+    background-color: #e2f2ff; /* Un azul muy suave al pasar el ratón */
+}
+
+/* --- Mensajes de feedback (éxito/error) --- */
+.message {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: none; /* Oculto por defecto, se muestra con JS */
+}
+
+.message.success {
+    background-color: var(--success-light);
+    color: var(--success-dark);
+    border: 1px solid var(--success-color);
+}
+
+.message.error {
+    background-color: var(--danger-light);
+    color: var(--danger-dark);
+    border: 1px solid var(--danger-color);
+}
+
+/* --- Secciones de Resumen (para historial de ventas/compras) --- */
+.summary-section {
+    background-color: #e9ecef; /* Un gris claro para la sección de resumen */
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 25px;
+    border: 1px solid #ced4da;
+    display: flex;
+    justify-content: space-around; /* Distribuir elementos horizontalmente */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+    gap: 15px; /* Espacio entre los elementos de resumen */
+}
+
+.summary-item {
+    flex-basis: 48%; /* Ocupa casi la mitad del ancho en diseños de dos columnas */
+    margin-bottom: 8px;
+    font-size: 1.15em;
+    color: var(--text-color-dark);
+}
+
+.summary-item span {
+    font-weight: bold;
+}
+
+/* Colores para valores numéricos de ganancia/pérdida */
+.profit {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.loss {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+/* --- Otros elementos comunes que podrías tener --- */
+.card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-3 {
+    margin-bottom: 1rem; /* 16px */
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+/* Estilos para el layout de filtros (como el de historial de ventas) */
+.filter-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas */
+    gap: 20px; /* Aumentar el espacio entre elementos del formulario */
+    margin-bottom: 30px; /* Más espacio antes de la tabla/resumen */
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: #f9f9f9;
+}
+
+.filter-form button {
+    grid-column: span var(--grid-columns, 2); /* Usa una variable CSS o ajusta manualmente */
+    /* Para el ejemplo de 2 columnas, pon 'grid-column: span 2;' */
+    /* Si tienes 3 columnas, puedes poner 'grid-column: span 3;' */
+    /* O simplemente un `width: 100%` y que el layout de grid lo maneje */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible en su celda */
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.7em; }
+    .filter-form {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        gap: 15px;
+    }
+    .filter-form button {
+        grid-column: span 1; /* Ocupa una sola columna en pantallas pequeñas */
+    }
+    .summary-item {
+        flex-basis: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+    }
+}
+
+/* Estilos para navegacion (si tienes un navbar o menu) */
+.navbar {
+    background-color: var(--primary-dark);
+    padding: 15px 0;
+    margin-bottom: 30px;
+    box-shadow: var(--box-shadow);
+}
+
+.navbar-container {
+    max-width: 960px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    color: var(--text-color-light);
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--warning-color); /* Un color de resaltado al pasar el ratón */
+}

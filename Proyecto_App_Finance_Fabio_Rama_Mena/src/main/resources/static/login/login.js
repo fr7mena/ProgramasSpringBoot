@@ -14,10 +14,14 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const messageEl = document.getElementById('loginMessage');
     if (response.ok) {
         messageEl.textContent = `¡Bienvenido ${result.name}! Redirigiendo...`;
+        messageEl.className = 'message success'; // Añadir clase 'success'
         setTimeout(() => {
             window.location.href = '../dashboard/dashboard.html';
         }, 1000);
     } else {
         messageEl.textContent = result.error || 'Error desconocido';
+        messageEl.className = 'message error'; // Añadir clase 'error'
     }
-})
+    // Asegurar que el mensaje se muestre
+    messageEl.style.display = 'block';
+});

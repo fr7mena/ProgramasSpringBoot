@@ -14,7 +14,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const messageEl = document.getElementById('registerMessage');
     if (response.ok) {
         messageEl.textContent = `Usuario ${result.name} registrado con éxito.`;
+        messageEl.className = 'message success'; // Añadir clase 'success'
     } else {
         messageEl.textContent = result.error || 'Error desconocido';
+        messageEl.className = 'message error'; // Añadir clase 'error'
     }
+    // Asegurar que el mensaje se muestre
+    messageEl.style.display = 'block';
 });
