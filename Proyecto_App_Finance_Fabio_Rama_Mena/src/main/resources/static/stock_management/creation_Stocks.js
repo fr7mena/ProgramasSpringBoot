@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Asegurarse de que messageDisplay no sea null antes de intentar usarlo
         if (messageDisplay) {
             messageDisplay.textContent = message;
-            messageDisplay.style.color = isError ? 'red' : 'green';
+            // Usar las clases CSS para los mensajes de éxito/error
+            messageDisplay.className = `message ${isError ? 'error' : 'success'}`;
             messageDisplay.style.display = 'block'; // Asegurarse de que el mensaje sea visible
         } else {
             console.error('Error: El elemento messageDisplay no se encontró en el DOM.');
@@ -55,16 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Manejar la respuesta del servidor
             if (response.ok) {
-                showMessage(responseData.message /*+ ". ID de la acción creada: " + responseData.stockId, false*/);
+                // Modificado para usar la clase 'success'
+                showMessage(responseData.message /*+ ". ID de la acción creada: " + responseData.stockId*/, false);
                 // Opcional: Redirigir después de un breve retraso para que el usuario vea el mensaje
                 setTimeout(() => {
                     window.location.href = 'dashboard_stock.html';
                 }, 2000); // Redirige después de 2 segundos
             } else {
+                // Modificado para usar la clase 'error'
                 showMessage('Error al crear la acción: ' + responseData.error, true); // Mostrar mensaje de error
             }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error);
+            // Modificado para usar la clase 'error'
             showMessage('Ocurrió un error al crear la acción. Por favor, inténtalo de nuevo.', true); // Mostrar error genérico
         }
     });

@@ -1,0 +1,79 @@
+/* src/main/resources/static/transaction_management/creation_Transactions.css */
+
+/* Importa los estilos globales desde la carpeta 'css' superior */
+@import "../css/styles.css";
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-color-dark);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    margin: 0;
+}
+
+h1 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center; /* Centrar el título */
+}
+
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--bg-white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Aplicación de las clases globales para los campos de formulario */
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text-color-dark);
+}
+
+/* Se reutilizan los estilos de input y select globales de styles.css */
+input[type="number"],
+input[type="text"],
+input[type="date"],
+select {
+    margin-bottom: 15px; /* Añadido margen inferior para separar campos */
+}
+
+/* Se reutilizan los estilos de botones globales de styles.css */
+button[type="submit"] {
+    width: 100%; /* Botón al 100% de ancho */
+    margin-top: 20px;
+}
+
+/* Estilo para el botón "Volver" */
+.return-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Se reutilizan los estilos de btn-secondary globales para el botón de volver */
+.return-button-container .btn-secondary {
+    padding: 10px 15px;
+    display: inline-block;
+    width: fit-content; /* Ajustar el ancho al contenido */
+}
+
+/* Estilo para el mensaje de feedback */
+#message {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    display: none; /* Controlado por JS */
+}
+
+/* Asegurar que los saltos de línea (<br><br>) no rompan el diseño */
+form br {
+    display: none;
+}

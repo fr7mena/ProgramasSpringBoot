@@ -3,73 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Transacciones</title>
+    <link rel="stylesheet" href="remove_Transactions.css">
     <script defer src="remove_Transactions.js"></script>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .delete-checkbox {
-            width: 20px;
-            height: 20px;
-        }
-    </style>
 </head>
 <body>
-<h1>Eliminar Transacciones</h1>
+<div class="container">
+    <h1>Eliminar Transacciones</h1>
 
-<form id="filterForm">
-    <label for="type">Tipo:</label>
-    <select id="type" name="type" required>
-        <option value="INCOME">Ingreso</option>
-        <option value="EXPENSE">Gasto</option>
-    </select><br><br>
+    <form id="filterForm">
+        <div class="form-group">
+            <label for="type">Tipo:</label>
+            <select id="type" name="type" required>
+                <option value="INCOME">Ingreso</option>
+                <option value="EXPENSE">Gasto</option>
+            </select>
+        </div>
 
-    <label for="category">Categoría:</label>
-    <input type="text" id="category" name="category" required><br><br>
+        <div class="form-group">
+            <label for="category">Categoría:</label>
+            <input type="text" id="category" name="category" required>
+        </div>
 
-    <label for="startDate">Fecha Inicial:</label>
-    <input type="date" id="startDate" name="startDate" required><br><br>
+        <div class="form-group">
+            <label for="startDate">Fecha Inicial:</label>
+            <input type="date" id="startDate" name="startDate" required>
+        </div>
 
-    <label for="endDate">Fecha Final:</label>
-    <input type="date" id="endDate" name="endDate" required><br><br>
+        <div class="form-group">
+            <label for="endDate">Fecha Final:</label>
+            <input type="date" id="endDate" name="endDate" required>
+        </div>
 
-    <button type="submit">Buscar Transacciones</button>
-</form>
-
-<br>
-<div id="transactionsTableContainer" style="display:none;">
-    <h2>Selecciona transacciones para eliminar:</h2>
-    <form id="deleteForm">
-        <table>
-            <thead>
-            <tr>
-                <th>Seleccionar</th>
-                <th>Fecha</th>
-                <th>Cantidad (€)</th>
-                <th>Categoría</th>
-                <th>Descripción</th>
-            </tr>
-            </thead>
-            <tbody id="transactionsTableBody">
-            </tbody>
-        </table>
-        <br>
-        <button type="submit">Eliminar seleccionadas</button>
+        <button type="submit" class="btn btn-primary">Buscar Transacciones</button>
     </form>
-</div>
 
-<br>
-<button onclick="window.location.href='transaction_management.html'">Volver</button>
-<div id="message"></div>
+    <div id="transactionsTableContainer" style="display:none;">
+        <h2>Selecciona transacciones para eliminar:</h2>
+        <form id="deleteForm">
+            <table>
+                <thead>
+                <tr>
+                    <th>Seleccionar</th>
+                    <th>Fecha</th>
+                    <th>Cantidad (€)</th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                </tr>
+                </thead>
+                <tbody id="transactionsTableBody">
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-danger">Eliminar seleccionadas</button>
+        </form>
+    </div>
+
+    <div class="return-button-container">
+        <button class="btn btn-secondary" onclick="window.location.href='transaction_management.html'">Volver</button>
+    </div>
+    <div id="message" class="message"></div> </div>
 </body>
 </html>

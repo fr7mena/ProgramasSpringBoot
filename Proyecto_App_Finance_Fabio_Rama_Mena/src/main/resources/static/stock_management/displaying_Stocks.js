@@ -12,14 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatDate(dateString) {
         if (!dateString) return '';
         const date = new Date(dateString);
-        return date.toLocaleDateString();
+        return date.toLocaleDateString(); // Formato local de la fecha
     }
 
     // Función para mostrar mensajes en la página
     function showMessage(message, isError = false) {
         if (messageDisplay) {
             messageDisplay.textContent = message;
-            messageDisplay.style.color = isError ? 'red' : 'green';
+            // Usar las clases CSS para los mensajes de éxito/error
+            messageDisplay.className = `message ${isError ? 'error' : 'success'}`;
             messageDisplay.style.display = 'block';
         } else {
             console.error('Error: El elemento messageDisplay no se encontró en el DOM.');
@@ -59,13 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 stocks.forEach(stock => {
                     const row = latestStocksTableBody.insertRow();
                     row.insertCell().textContent = stock.ticker;
-                    row.insertCell().textContent = stock.purchasePrice ? parseFloat(stock.purchasePrice).toFixed(2) : '0.00';
+                    row.insertCell().textContent = stock.purchasePrice ? parseFloat(stock.purchasePrice).toFixed(2) + ' €' : '0.00 €';
                     row.insertCell().textContent = stock.quantity;
                     row.insertCell().textContent = formatDate(stock.purchaseDate);
                 });
             } else {
-                latestStocksTableBody.insertRow().insertCell().colSpan = 4;
-                latestStocksTableBody.rows[0].textContent = 'No hay acciones recientes.';
+                const row = latestStocksTableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 4; // Ocupar todas las columnas
+                cell.textContent = 'No hay acciones recientes.';
+                cell.style.textAlign = 'center'; // Centrar el mensaje
             }
         } catch (error) {
             console.error('Error al cargar las últimas acciones:', error);
@@ -91,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Si ambos campos de filtro están vacíos, no enviar la solicitud y mostrar todas las acciones
         if (!ticker && !purchaseDate) {
-            filteredStocksContainer.style.display = 'none';
+            filteredStocksContainer.style.display = 'none'; // Asegurarse de ocultar la tabla filtrada
             showMessage('Por favor, introduce al menos un criterio de búsqueda.', true);
             return;
         }
@@ -108,18 +112,25 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredStocksTableBody.innerHTML = ''; // Limpiar tabla
             filteredStocksContainer.style.display = 'block'; // Mostrar contenedor
 
-            if (response.ok && result && result.length > 0) {
+            if (response.ok && result && Array.isArray(result) && result.length > 0) {
                 result.forEach(stock => {
                     const row = filteredStocksTableBody.insertRow();
                     row.insertCell().textContent = stock.ticker;
-                    row.insertCell().textContent = stock.purchasePrice ? parseFloat(stock.purchasePrice).toFixed(2) : '0.00';
+                    row.insertCell().textContent = stock.purchasePrice ? parseFloat(stock.purchasePrice).toFixed(2) + ' €' : '0.00 €';
                     row.insertCell().textContent = stock.quantity;
                     row.insertCell().textContent = formatDate(stock.purchaseDate);
                 });
                 showMessage(`Se encontraron ${result.length} acciones con los filtros aplicados.`, false);
-            } else {
+            } else if (response.ok && result && result.message) { // Manejar mensaje del backend si no hay resultados
+                filteredStocksTableBody.insertRow().insertCell().colSpan = 4;
+                filteredStocksTableBody.rows[0].textContent = result.message;
+                filteredStocksTableBody.rows[0].style.textAlign = 'center';
+                showMessage(result.message, false);
+            }
+            else { // Caso de error o lista vacía sin mensaje
                 filteredStocksTableBody.insertRow().insertCell().colSpan = 4;
                 filteredStocksTableBody.rows[0].textContent = 'No se encontraron acciones con estos filtros.';
+                filteredStocksTableBody.rows[0].style.textAlign = 'center';
                 showMessage('No se encontraron acciones con estos filtros.', true);
             }
         } catch (error) {

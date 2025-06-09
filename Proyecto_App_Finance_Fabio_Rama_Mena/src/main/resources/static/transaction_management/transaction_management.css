@@ -1,0 +1,79 @@
+/* src/main/resources/static/transaction_management/transaction_management.css */
+
+/* Importa los estilos globales desde la carpeta 'css' superior */
+@import "../css/styles.css";
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-color-dark);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 40px auto;
+    background: var(--bg-white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center; /* Centrar el contenido del contenedor principal */
+}
+
+h1 {
+    color: var(--primary-dark);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+#userInfo {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    border: 1px solid #ced4da;
+    text-align: left; /* Alinear el texto de la información del usuario a la izquierda */
+}
+
+#userInfo p {
+    margin-bottom: 10px;
+    color: var(--text-color-dark);
+    font-size: 1.1em;
+}
+
+#userInfo p:last-child {
+    margin-bottom: 0;
+}
+
+#actions {
+    display: flex;
+    flex-direction: column; /* Apilar botones verticalmente */
+    gap: 15px; /* Espacio entre botones */
+    margin-bottom: 30px;
+}
+
+/* Se reutilizan los estilos de btn-primary globales para los botones de acción */
+#actions .btn-primary {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    width: 80%; /* Ancho de los botones */
+    max-width: 300px; /* Ancho máximo para que no se extiendan demasiado */
+    margin: 0 auto; /* Centrar los botones */
+}
+
+/* Estilo para el botón "Volver al Dashboard" */
+.return-to-dashboard-button {
+    margin-top: 20px;
+    display: inline-block; /* Para que se comporte como un bloque en línea */
+    width: auto; /* Ancho automático */
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    #actions .btn-primary {
+        width: 100%; /* Ocupar todo el ancho en pantallas pequeñas */
+        max-width: none;
+    }
+}

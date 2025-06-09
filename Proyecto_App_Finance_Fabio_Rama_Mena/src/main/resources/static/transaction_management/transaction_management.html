@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Transacciones</title>
+    <link rel="stylesheet" href="transaction_management.css">
     <script defer src="transaction_management.js"></script>
 </head>
 <body>
-<h1>Gestión de Transacciones</h1>
-<div id="userInfo">
-    <p>Cargando información del usuario...</p>
+<div class="container">
+    <h1>Gestión de Transacciones</h1>
+    <div id="userInfo" class="mb-3"> <p>Cargando mensaje de bienvenida...</p>
+    </div>
+    <div id="actions">
+        <button class="btn btn-primary" onclick="window.location.href = 'creation_Transactions.html'">Crear Transacción</button>
+        <button class="btn btn-primary" onclick="window.location.href = 'remove_Transactions.html'">Eliminar Transacción</button>
+        <button class="btn btn-primary" onclick="window.location.href = 'dashboard_Transactions.html'">Panel de Transacciones</button>
+    </div>
+    <button class="btn btn-secondary return-to-dashboard-button" onclick="window.location.href = '../dashboard/dashboard.html'">Volver al Dashboard</button>
 </div>
-<div id="actions">
-    <button onclick="window.location.href = 'creation_Transactions.html'">Crear Transacción</button>
-    <button onclick="window.location.href = 'remove_Transactions.html'">Eliminar Transacción</button>
-    <button onclick="window.location.href = 'dashboard_Transactions.html'">Panel de Transacciones</button>
-</div>
-<button onclick="window.location.href = '../dashboard/dashboard.html'">Volver al Dashboard</button>
-
 </body>
 </html>

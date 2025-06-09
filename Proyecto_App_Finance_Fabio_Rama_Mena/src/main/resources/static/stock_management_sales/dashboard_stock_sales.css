@@ -1,0 +1,48 @@
+/* src/main/resources/static/stock_management_sales/dashboard_stock_sales.css */
+
+/* Estilos específicos para el dashboard de gestión de venta */
+body {
+    /* No se necesitan estilos de fuente o margen aquí, se heredan del styles.css */
+    /* o se aplican a través del .container en el HTML */
+}
+
+h1 {
+    /* El color ya lo proporciona styles.css */
+    text-align: center; /* Centrar el título principal */
+    margin-bottom: 30px;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex; /* Usar flexbox para alinear botones */
+    gap: 15px; /* Espacio entre los botones */
+    flex-wrap: wrap; /* Permitir que los botones se envuelvan en pantallas pequeñas */
+    justify-content: center; /* Centrar los botones */
+}
+
+.button-container .btn {
+    min-width: 200px; /* Ancho mínimo para que los botones no sean demasiado pequeños */
+    font-size: 1.1em;
+    background-color: var(--info-color); /* Un color diferente para diferenciar de compras */
+}
+
+.button-container .btn:hover {
+    background-color: #118293; /* Un tono más oscuro de info-color */
+}
+
+/* Ajuste para el botón de volver al dashboard principal */
+.return-button {
+    display: block; /* Ocupa su propia línea */
+    margin: 30px auto 0 auto; /* Centrar horizontalmente, margen superior */
+    width: fit-content; /* Ajustar el ancho al contenido */
+}
+
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column; /* Apilar botones en pantallas muy pequeñas */
+        align-items: center; /* Centrar elementos apilados */
+    }
+    .button-container .btn {
+        width: 100%; /* Ocupar todo el ancho disponible al apilar */
+    }
+}

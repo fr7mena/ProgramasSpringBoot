@@ -2,141 +2,72 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vender Acciones</title>
-    <script defer src="../dashboard/dashboard.js"></script>
-    <script defer src="sale_Stocks.js"></script>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"],
-        input[type="date"] {
-            width: calc(100% - 22px); /* Ajuste para el padding */
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #28a745; /* Color verde para "Buscar" y "Vender" */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .message-display {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            display: none;
-        }
-        .error {
-            color: red;
-            background-color: #ffe0e0;
-            border-color: #ffc0c0;
-        }
-        .success {
-            color: green;
-            background-color: #e0ffe0;
-            border-color: #c0ffc0;
-        }
-        #saleFormContainer {
-            display: none; /* Ocultar el segundo formulario por defecto */
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css">               <link rel="stylesheet" href="sale_Stocks.css">                <script defer src="sale_Stocks.js"></script>
 </head>
 <body>
-<h1>Vender Acciones</h1>
+<div class="container">
+    <h1>Vender Acciones</h1>
 
-<div class="message-display" id="messageDisplay"></div>
+    <div class="message" id="messageDisplay"></div>
 
-<form id="findStockForm">
-    <h2>Buscar Acciones para Vender</h2>
-    <label for="tickerSearch">Ticker:</label>
-    <input type="text" id="tickerSearch" name="tickerSearch" required>
-    <button type="submit">Buscar Acciones</button>
-</form>
-
-<div id="stocksListContainer" style="display: none;">
-    <h2>Acciones Disponibles para Vender</h2>
-    <form id="selectStockForm">
-        <table>
-            <thead>
-            <tr>
-                <th>Seleccionar</th>
-                <th>ID de Stock</th>
-                <th>Ticker</th>
-                <th>Precio de Compra (€)</th>
-                <th>Cantidad Disponible</th>
-                <th>Fecha de Compra</th>
-            </tr>
-            </thead>
-            <tbody id="stocksTableBody">
-            </tbody>
-        </table>
-        <button type="submit" id="selectStockBtn" style="display: none;">Seleccionar Acción</button>
+    <form id="findStockForm">
+        <h2>Buscar Acciones para Vender</h2>
+        <div class="form-group">
+            <label for="tickerSearch">Ticker:</label>
+            <input type="text" id="tickerSearch" name="tickerSearch" required placeholder="Ej: MSFT">
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar Acciones</button>
     </form>
+
+    <div id="stocksListContainer" style="display: none;">
+        <h2>Acciones Disponibles para Vender</h2>
+        <form id="selectStockForm">
+            <table>
+                <thead>
+                <tr>
+                    <th>Seleccionar</th>
+                    <th>ID de Stock</th>
+                    <th>Ticker</th>
+                    <th>Precio de Compra (€)</th>
+                    <th>Cantidad Disponible</th>
+                    <th>Fecha de Compra</th>
+                </tr>
+                </thead>
+                <tbody id="stocksTableBody">
+                </tbody>
+            </table>
+            <button type="submit" id="selectStockBtn" class="btn btn-primary" style="display: none;">Seleccionar Acción</button>
+        </form>
+    </div>
+
+    <div id="saleFormContainer" style="display: none;"> <h2>Detalles de la Venta de la Acción Seleccionada (<span id="selectedStockTicker"></span>)</h2>
+        <form id="saleDetailsForm">
+            <input type="hidden" id="selectedStockId" name="selectedStockId">
+            <input type="hidden" id="selectedStockPurchasePrice" name="selectedStockPurchasePrice">
+            <input type="hidden" id="selectedStockQuantity" name="selectedStockQuantity">
+
+            <div class="form-group">
+                <label for="quantityToSell">Cantidad a Vender:</label>
+                <input type="number" id="quantityToSell" name="quantityToSell" min="1" required placeholder="Cantidad">
+            </div>
+
+            <div class="form-group">
+                <label for="sellPrice">Precio de Venta (€):</label>
+                <input type="number" id="sellPrice" name="sellPrice" step="0.01" required placeholder="Ej: 160.00">
+            </div>
+
+            <div class="form-group">
+                <label for="sellDate">Fecha de Venta:</label>
+                <input type="date" id="sellDate" name="sellDate" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Registrar Venta</button>
+        </form>
+    </div>
+
+    <a href="dashboard_stock_sales.html" class="return-button">Volver a Gestión de Venta</a>
 </div>
-
-<div id="saleFormContainer">
-    <h2>Detalles de la Venta de la Acción Seleccionada (<span id="selectedStockTicker"></span>)</h2>
-    <form id="saleDetailsForm">
-        <input type="hidden" id="selectedStockId" name="selectedStockId">
-        <input type="hidden" id="selectedStockPurchasePrice" name="selectedStockPurchasePrice">
-        <input type="hidden" id="selectedStockQuantity" name="selectedStockQuantity">
-
-        <label for="quantityToSell">Cantidad a Vender:</label>
-        <input type="number" id="quantityToSell" name="quantityToSell" min="1" required>
-
-        <label for="sellPrice">Precio de Venta (€):</label>
-        <input type="number" id="sellPrice" name="sellPrice" step="0.01" required>
-
-        <label for="sellDate">Fecha de Venta:</label>
-        <input type="date" id="sellDate" name="sellDate" required>
-
-        <button type="submit">Registrar Venta</button>
-    </form>
-</div>
-
-<br>
-<button onclick="window.location.href='dashboard_stock_sales.html'">Volver a Gestión de Venta</button>
 </body>
 </html>

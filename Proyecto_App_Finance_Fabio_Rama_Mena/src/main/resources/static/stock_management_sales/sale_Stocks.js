@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedStockData = null; // Para almacenar los datos de la acción seleccionada
 
     // Función para mostrar mensajes
+    // Utiliza las clases 'message success' y 'message error' definidas en styles.css
     function showMessage(message, isError = false) {
         messageDisplay.textContent = message;
-        messageDisplay.className = 'message-display ' + (isError ? 'error' : 'success');
+        messageDisplay.className = `message ${isError ? 'error' : 'success'}`; // Usa la clase 'message' base
         messageDisplay.style.display = 'block';
     }
 
@@ -29,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideMessage() {
         setTimeout(() => {
             messageDisplay.style.display = 'none';
+            messageDisplay.textContent = ''; // Limpiar el contenido también
+            messageDisplay.className = 'message'; // Resetear a solo la clase base 'message'
         }, 5000); // 5 segundos
     }
 
@@ -42,15 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Primer Formulario: Buscar Acciones por Ticker ---
     findStockForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        showMessage('', false); // Limpiar mensajes
+        hideMessage(); // Limpiar y ocultar mensajes antes de la búsqueda
         stocksListContainer.style.display = 'none'; // Ocultar tabla de stocks
         saleFormContainer.style.display = 'none'; // Ocultar formulario de venta
         stocksTableBody.innerHTML = ''; // Limpiar tabla
+        selectStockBtn.style.display = 'none'; // Ocultar botón de selección
 
         const ticker = document.getElementById('tickerSearch').value.trim();
 
         if (!ticker) {
-            showMessage('Por favor, introduce un Ticker para buscar.', true);
+            showMessage('Por favor, introduce un Ticker para buscar.', true); // true para error
             return;
         }
 
@@ -66,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
-                if (data.length > 0) {
+                if (Array.isArray(data) && data.length > 0) { // Asegurarse de que data es un array
                     data.forEach(stock => {
                         const row = stocksTableBody.insertRow();
                         // Los data-attributes usarán los nombres de propiedades de StockCreateDTO
@@ -81,31 +85,37 @@ document.addEventListener('DOMContentLoaded', () => {
                         row.insertCell().textContent = stock.quantity;
                         row.insertCell().textContent = formatDate(stock.purchaseDate);
                     });
-                    stocksListContainer.style.display = 'block';
+                    stocksListContainer.style.display = 'block'; // Mostrar la tabla de stocks
                     selectStockBtn.style.display = 'block'; // Mostrar botón de selección
-                } else {
-                    // La respuesta puede ser un mensaje de error si no se encuentra (HttpStatus.NOT_FOUND)
-                    // o un array vacío si la búsqueda no tiene resultados (HttpStatus.OK con lista vacía)
-                    showMessage(data.message || 'No se encontraron acciones con ese ticker para vender o no tienes acciones disponibles.', false);
+                    showMessage(`Se encontraron ${data.length} acciones disponibles para vender con el ticker "${ticker}".`, false); // false para éxito
+                } else if (data.message) { // Si el backend envía un objeto con 'message' cuando no hay resultados
+                    showMessage(data.message, false); // Mostrar como éxito si es un mensaje informativo
+                    stocksListContainer.style.display = 'none';
+                    selectStockBtn.style.display = 'none';
+                }
+                else { // Si es un array vacío o respuesta inesperada
+                    showMessage('No se encontraron acciones con ese ticker para vender o no tienes acciones disponibles.', false); // false para éxito
                     stocksListContainer.style.display = 'none';
                     selectStockBtn.style.display = 'none';
                 }
             } else {
-                showMessage(data.error || 'Error al buscar acciones.', true);
+                showMessage(data.error || 'Error al buscar acciones.', true); // Mostrar error del backend
             }
         } catch (error) {
             console.error('Error al buscar acciones:', error);
-            showMessage('Ocurrió un error al buscar acciones.', true);
+            showMessage('Ocurrió un error al buscar acciones.', true); // true para error
         }
     });
 
     // --- Segundo Formulario: Seleccionar Instancia de Stock ---
     selectStockForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        hideMessage(); // Limpiar y ocultar mensajes
+
         const selectedRadio = document.querySelector('input[name="selectedStock"]:checked');
 
         if (!selectedRadio) {
-            showMessage('Por favor, selecciona una acción para vender.', true);
+            showMessage('Por favor, selecciona una acción para vender.', true); // true para error
             return;
         }
 
@@ -132,14 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         stocksListContainer.style.display = 'none'; // Ocultar tabla de selección
         saleFormContainer.style.display = 'block'; // Mostrar formulario de venta
-        showMessage(`Acción '${selectedStockData.ticker}' seleccionada.`, false);
-        hideMessage();
+        showMessage(`Acción '${selectedStockData.ticker}' seleccionada.`, false); // false para éxito
+        hideMessage(); // Ocultar el mensaje de éxito después de un tiempo
     });
 
     // --- Tercer Formulario: Registrar Venta ---
     saleDetailsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        showMessage('', false); // Limpiar mensajes
+        hideMessage(); // Limpiar y ocultar mensajes
 
         const quantityToSell = parseInt(quantityToSellInput.value);
         const sellPrice = parseFloat(sellPriceInput.value);
@@ -175,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmMessage = `¿Estás seguro de que quieres registrar la venta de ${quantityToSell} acciones de ${selectedStockData.ticker} (ID: ${selectedStockData.id}) por ${sellPrice.toFixed(2)}€ cada una?\n\nCon esta venta, ${gainLoss >= 0 ? 'ganarías' : 'perderías'} ${Math.abs(gainLoss).toFixed(2)}€.`;
 
         if (!confirm(confirmMessage)) {
-            showMessage('Venta cancelada.', false);
+            showMessage('Venta cancelada.', false); // false para éxito
             hideMessage();
             return;
         }
@@ -201,19 +211,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (response.ok) {
-                showMessage(result.message || 'Venta registrada exitosamente.', false);
+                showMessage(result.message || 'Venta registrada exitosamente.', false); // false para éxito
                 // Resetear formularios y estados
                 findStockForm.reset();
                 stocksListContainer.style.display = 'none';
                 saleFormContainer.style.display = 'none';
-                selectedStockData = null;
-                hideMessage();
+                selectedStockData = null; // Limpiar los datos de la acción seleccionada
+                hideMessage(); // Ocultar el mensaje de éxito después de un tiempo
             } else {
-                showMessage(result.error || 'Error al registrar la venta.', true);
+                showMessage(result.error || 'Error al registrar la venta.', true); // true para error
             }
         } catch (error) {
             console.error('Error al registrar la venta:', error);
-            showMessage('Ocurrió un error al registrar la venta. Por favor, inténtalo de nuevo.', true);
+            showMessage('Ocurrió un error al registrar la venta. Por favor, inténtalo de nuevo.', true); // true para error
         }
     });
 

@@ -4,114 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Ventas de Acciones</title>
-    <link rel="stylesheet" href="/css/styles.css"> <style>
-    /* Estilos básicos para la tabla y el formulario, puedes integrarlos en tu styles.css si quieres */
-    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    h1, h2 { color: #0056b3; }
-    .filter-form {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-    }
-    .form-group {
-        display: flex;
-        flex-direction: column;
-    }
-    .filter-form label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-    .filter-form input[type="text"],
-    .filter-form input[type="date"] {
-        width: calc(100% - 20px); /* Ajusta el ancho para el padding */
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box; /* Incluir padding en el ancho */
-    }
-    .filter-form button {
-        grid-column: span 2; /* Para que el botón ocupe las dos columnas */
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        text-align: center;
-    }
-    .filter-form button:hover {
-        background-color: #0056b3;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-    }
-    th {
-        background-color: #007bff;
-        color: white;
-    }
-    .summary-section {
-        background-color: #e9ecef;
-        padding: 15px;
-        border-radius: 8px;
-        margin-top: 20px;
-        border: 1px solid #ced4da;
-    }
-    .summary-item {
-        margin-bottom: 8px;
-        font-size: 1.1em;
-    }
-    .summary-item span {
-        font-weight: bold;
-    }
-    .message {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: none; /* Oculto por defecto, se muestra con JS */
-    }
-    .message.success {
-        background-color: #d4edda;
-        color: #155724;
-        border-color: #c3e6cb;
-    }
-    .message.error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border-color: #f5c6cb;
-    }
-    .return-button {
-        display: inline-block; /* Para que no ocupe todo el ancho */
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #6c757d;
-        color: white;
-        text-align: center;
-        border-radius: 5px;
-        text-decoration: none;
-        width: fit-content; /* Se ajusta al contenido */
-    }
-    .return-button:hover {
-        background-color: #5a6268;
-    }
-    .profit { color: green; font-weight: bold; }
-    .loss { color: red; font-weight: bold; }
-</style>
-</head>
+    <link rel="stylesheet" href="../css/styles.css">                   <link rel="stylesheet" href="displaying_Stocks_Sales.css">        </head>
 <body>
 <div class="container">
     <h1>Historial de Ventas de Acciones</h1>
@@ -126,7 +19,7 @@
             <label for="sellDateInput">Fecha de Venta:</label>
             <input type="date" id="sellDateInput" name="sellDate">
         </div>
-        <button id="filterButton">Actualizar Tabla</button>
+        <button id="filterButton" class="btn btn-primary">Actualizar Tabla</button>
     </div>
 
     <div class="summary-section">
@@ -148,13 +41,14 @@
             </tr>
             </thead>
             <tbody id="salesTableBody">
-            </tbody>
+            <tr><td colspan="5">Cargando ventas...</td></tr> </tbody>
         </table>
         <div id="messageDisplay" class="message"></div>
     </div>
 
-    <a href="/stock_management_sales/dashboard_stock_sales.html" class="return-button">Volver a Gestión de Venta de Acciones</a>
+    <a href="dashboard_stock_sales.html" class="return-button">Volver a Gestión de Venta de Acciones</a>
 </div>
 
-<script src="/stock_management_sales/displaying_Stocks_Sales.js"></script> </body>
+<script defer src="displaying_Stocks_Sales.js"></script>
+</body>
 </html>

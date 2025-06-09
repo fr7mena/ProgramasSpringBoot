@@ -1,0 +1,56 @@
+/* src/main/resources/static/dashboard/dashboard.css */
+
+/* Estilos específicos para el Dashboard: botones de navegación */
+.dashboard-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 2 columnas en pantallas grandes, 1 en pequeñas */
+    gap: 20px; /* Espacio entre los botones */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.dashboard-buttons .btn {
+    width: 100%; /* Asegurar que los botones ocupen todo el ancho de su celda */
+    padding: 20px; /* Más padding para hacer los botones más grandes */
+    font-size: 1.2em;
+    text-align: center;
+}
+
+/* Estilos para el modal de cierre de sesión */
+.modal-overlay {
+    position: fixed; /* Cubre toda toda la ventana */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente oscuro */
+    display: flex; /* Usar flexbox para centrar contenido */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.modal-content {
+    background-color: var(--bg-white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    max-width: 400px;
+    width: 90%; /* Responsividad */
+}
+
+.modal-content p {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre los botones del modal */
+}
+
+.modal-actions .btn {
+    min-width: 100px; /* Ancho mínimo para los botones del modal */
+}

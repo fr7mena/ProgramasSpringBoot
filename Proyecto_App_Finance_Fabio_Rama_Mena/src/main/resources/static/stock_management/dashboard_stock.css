@@ -1,0 +1,25 @@
+/* src/main/resources/static/stock_management/dashboard_stock.css */
+
+/* Estilos para el contenedor de botones del dashboard de compra */
+.button-container {
+    margin-top: 20px;
+    display: flex; /* Usar flexbox para alinear botones */
+    gap: 15px; /* Espacio entre los botones */
+    flex-wrap: wrap; /* Permitir que los botones se envuelvan en pantallas pequeñas */
+    justify-content: center; /* Centrar los botones */
+}
+
+.button-container .btn {
+    min-width: 200px; /* Ancho mínimo para que los botones no sean demasiado pequeños */
+    font-size: 1.1em;
+}
+
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column; /* Apilar botones en pantallas muy pequeñas */
+        align-items: center; /* Centrar elementos apilados */
+    }
+    .button-container .btn {
+        width: 100%; /* Ocupar todo el ancho disponible al apilar */
+    }
+}

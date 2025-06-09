@@ -2,39 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Compra de Acciones</title>
-    <script defer src="dashboard_stock.js"></script> <style>
-    body {
-        font-family: sans-serif;
-        margin: 20px;
-    }
-    h1 {
-        color: #333;
-    }
-    .button-container {
-        margin-top: 20px;
-    }
-    .button-container button {
-        padding: 10px 15px;
-        margin-right: 10px;
-        cursor: pointer;
-        font-size: 1em;
-    }
-</style>
+    <link rel="stylesheet" href="../css/styles.css">             <!-- CSS Base -->
+    <link rel="stylesheet" href="dashboard_stock.css">          <!-- CSS Específico de esta página -->
+    <script defer src="dashboard_stock.js"></script>
 </head>
 <body>
-<h1>Gestión de Compra de Acciones</h1>
+<div class="container"> <!-- Contenedor principal -->
+    <h1>Gestión de Compra de Acciones</h1>
 
-<div class="button-container">
-    <button onclick="window.location.href='displaying_Stocks.html'">
-        Ver Todas las Acciones
-    </button>
-    <button onclick="window.location.href='creation_Stocks.html'">
-        Crear Nueva Acción
-    </button>
+    <div class="button-container">
+        <button onclick="window.location.href='displaying_Stocks.html'" class="btn btn-primary">
+            Ver Todas las Acciones
+        </button>
+        <button onclick="window.location.href='creation_Stocks.html'" class="btn btn-primary">
+            Crear Nueva Acción
+        </button>
+    </div>
+
+    <a href="../dashboard/dashboard.html" class="return-button">Volver al Dashboard Principal</a>
 </div>
-
-<br>
-<button onclick="window.location.href='../dashboard/dashboard.html'">Volver al Dashboard Principal</button>
 </body>
 </html>

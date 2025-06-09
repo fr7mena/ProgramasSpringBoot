@@ -1,0 +1,146 @@
+/* src/main/resources/static/stock_management_sales/sale_Stocks.css */
+
+/* Estilos para el título principal */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos para el formulario de búsqueda de acciones */
+#findStockForm {
+    background-color: var(--bg-white); /* Fondo claro, aunque el .container ya lo tiene */
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 25px; /* Espacio antes del siguiente elemento */
+    border: 1px solid var(--border-color); /* Borde para el formulario */
+}
+
+#findStockForm h2 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+#findStockForm input[type="text"] {
+    /* Ya usa width: 100% por .form-group en styles.css */
+}
+
+#findStockForm button {
+    background-color: var(--primary-color); /* Botón de búsqueda con color principal */
+    color: var(--text-color-light);
+    margin-top: 15px;
+    width: auto; /* Ancho automático para el botón de búsqueda */
+    padding: 10px 20px; /* Un poco menos de padding para que se vea más como un botón de acción */
+}
+
+#findStockForm button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Estilos para el contenedor de la lista de acciones disponibles (inicialmente oculto) */
+#stocksListContainer {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Fondo ligeramente diferente para esta sección */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    /* display: none; es manejado por JavaScript */
+}
+
+#stocksListContainer h2 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+#stocksListContainer table {
+    margin-top: 15px; /* Espacio extra sobre la tabla */
+}
+
+#stocksListContainer th {
+    background-color: var(--secondary-color); /* Encabezados de tabla de selección, diferente del primary */
+}
+
+#stocksListContainer th, #stocksListContainer td {
+    padding: 10px;
+    vertical-align: middle; /* Alinea el contenido de las celdas verticalmente */
+}
+
+/* Estilos para el botón de selección de acción de la tabla (inicialmente oculto) */
+#selectStockBtn {
+    display: block; /* Para que ocupe su propia línea y se centre */
+    margin: 20px auto 0 auto; /* Centrar y añadir margen superior */
+    background-color: var(--primary-color); /* Color principal para seleccionar */
+    color: var(--text-color-light);
+    padding: 12px 25px;
+    font-size: 1em;
+    width: fit-content; /* Se ajusta al contenido */
+}
+
+#selectStockBtn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Estilos para el formulario de detalles de venta (inicialmente oculto) */
+#saleFormContainer {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    /* display: none; es manejado por JavaScript */
+}
+
+#saleFormContainer h2 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+#selectedStockTicker {
+    color: var(--info-color);
+    font-weight: bold;
+}
+
+#saleDetailsForm .form-group {
+    margin-bottom: 15px;
+}
+
+#saleDetailsForm input[type="number"],
+#saleDetailsForm input[type="date"] {
+    /* Ya usan width: 100% por .form-group en styles.css */
+}
+
+#saleDetailsForm button {
+    background-color: var(--success-color); /* Color de éxito para el botón de registrar venta */
+    color: var(--text-color-light);
+    margin-top: 15px;
+    width: 100%; /* El botón ocupa todo el ancho */
+    padding: 12px 25px;
+}
+
+#saleDetailsForm button:hover {
+    background-color: var(--success-dark);
+}
+
+/* Ajuste para el botón de volver al dashboard de venta */
+.return-button {
+    display: block; /* Ocupa su propia línea */
+    margin: 30px auto 0 auto; /* Centrar horizontalmente, margen superior */
+    width: fit-content; /* Ajustar el ancho al contenido */
+}
+
+/* Clases de mensaje de feedback (ya definidas en styles.css, pero se pueden sobreescribir aquí si es necesario) */
+.message {
+    /* No se necesita redefinir si ya se quiere el estilo global */
+}
+.message.error {
+    /* No se necesita redefinir si ya se quiere el estilo global */
+}
+.message.success {
+    /* No se necesita redefinir si ya se quiere el estilo global */
+}

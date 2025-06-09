@@ -2,70 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduce una acción:</title>
+    <link rel="stylesheet" href="../css/styles.css">              <!-- CSS Base -->
+    <link rel="stylesheet" href="creation_Stocks.css">          <!-- CSS Específico de esta página -->
     <script defer src="creation_Stocks.js"></script>
-    <style> /* Corregido: La etiqueta <style> debe estar dentro de <head> y después de <script> o en su propio bloque */
-    body {
-        font-family: sans-serif;
-        margin: 20px;
-    }
-    h1 {
-        color: #333;
-    }
-    form {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-    }
-    form label {
-        margin-bottom: 5px;
-    }
-    form input {
-        padding: 8px;
-        margin-bottom: 10px;
-    }
-    form button {
-        padding: 10px 15px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 1em;
-        margin-top: 10px;
-    }
-    form button:hover {
-        background-color: #367c39;
-    }
-    #messageDisplay { /* Estilos para el nuevo div de mensajes */
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: none; /* Oculto por defecto */
-    }
-    </style>
 </head>
 <body>
-<h1>Introduce una acción:</h1>
+<div class="container"> <!-- Contenedor principal -->
+    <h1>Introduce una acción:</h1>
 
-<form id="createStockForm">
-    <label for="ticker">Ticker:</label>
-    <input type="text" id="ticker" name="ticker" required>
+    <form id="createStockForm">
+        <div class="form-group">
+            <label for="ticker">Ticker:</label>
+            <input type="text" id="ticker" name="ticker" required placeholder="Ej: AAPL">
+        </div>
 
-    <label for="purchasePrice">Precio de Compra:</label>
-    <input type="number" id="purchasePrice" name="purchasePrice" step="0.01" required>
+        <div class="form-group">
+            <label for="purchasePrice">Precio de Compra (€):</label>
+            <input type="number" id="purchasePrice" name="purchasePrice" step="0.01" required placeholder="Ej: 150.25">
+        </div>
 
-    <label for="quantity">Cantidad:</label>
-    <input type="number" id="quantity" name="quantity" required>
+        <div class="form-group">
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" name="quantity" required min="1" placeholder="Ej: 10">
+        </div>
 
-    <label for="purchaseDate">Fecha de Compra:</label>
-    <input type="date" id="purchaseDate" name="purchaseDate" required>
+        <div class="form-group">
+            <label for="purchaseDate">Fecha de Compra:</label>
+            <input type="date" id="purchaseDate" name="purchaseDate" required>
+        </div>
 
-    <button type="submit">Guardar Acción</button>
-</form>
+        <button type="submit" class="btn btn-primary">Guardar Acción</button>
+    </form>
 
-<div id="messageDisplay"></div> <br>
-<button onclick="window.location.href='dashboard_stock.html'">Volver a Gestión de Compra de Acciones</button>
+    <div id="messageDisplay" class="message"></div> <!-- Mensajes de éxito/error -->
+    <a href="dashboard_stock.html" class="return-button">Volver a Gestión de Compra de Acciones</a>
+</div>
 </body>
 </html>

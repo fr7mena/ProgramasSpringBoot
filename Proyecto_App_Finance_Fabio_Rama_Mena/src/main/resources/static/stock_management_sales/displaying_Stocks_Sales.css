@@ -1,0 +1,19 @@
+/* src/main/resources/static/stock_management_sales/displaying_Stocks_Sales.css */
+
+/* No hay estilos específicos adicionales necesarios aquí que no estén cubiertos por styles.css
+   Las clases como .container, .filter-form, .form-group, .btn, table, .summary-section,
+   .message, .profit, .loss, .return-button ya están definidas en styles.css */
+
+/* Solo si quieres algún ajuste MUY específico para esta página, agrégalo aquí.
+   Por ejemplo, un margen extra en una sección particular. */
+.table-section {
+    margin-top: 30px; /* Un poco más de espacio sobre la tabla */
+}
+
+/* Ajuste para el mensaje de "no hay ventas" en la tabla */
+#salesTableBody td[colspan="5"] {
+    text-align: center;
+    font-style: italic;
+    color: var(--secondary-color);
+    padding: 20px;
+}

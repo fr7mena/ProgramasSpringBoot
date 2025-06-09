@@ -3,68 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard de Transacciones</title>
-    <script defer src="dashboard_Transactions.js"></script>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="dashboard_Transactions.css"> <script defer src="dashboard_Transactions.js"></script>
 </head>
 <body>
-<h1>Dashboard de Transacciones</h1>
+<div class="container"> <h1>Dashboard de Transacciones</h1>
 
-<div id="balanceContainer">
-    <h2>Saldo Actual: <span id="currentBalance">Cargando...</span> €</h2>
-</div>
+    <div id="balanceContainer">
+        <h2>Saldo Actual: <span id="currentBalance">Cargando...</span> €</h2>
+    </div>
 
-<h2>Últimas 10 Transacciones</h2>
-<table id="latestTransactionsTable">
-    <thead>
-    <tr>
-        <th>Fecha</th>
-        <th>Tipo</th>
-        <th>Cantidad (€)</th>
-        <th>Categoría</th>
-        <th>Descripción</th>
-    </tr>
-    </thead>
-    <tbody id="latestTransactionsTableBody">
-    <tr><td colspan="5">Cargando transacciones...</td></tr>
-    </tbody>
-</table>
-
-<h2>Filtrar Transacciones</h2>
-<form id="filterDashboardForm">
-    <label for="type">Tipo:</label>
-    <select id="type" name="type">
-        <option value="ALL">Todas</option>
-        <option value="INCOME">Ingreso</option>
-        <option value="EXPENSE">Gasto</option>
-    </select><br><br>
-
-    <label for="startDate">Fecha Inicial:</label>
-    <input type="date" id="startDate" name="startDate"><br><br>
-
-    <label for="endDate">Fecha Final:</label>
-    <input type="date" id="endDate" name="endDate"><br><br>
-
-    <button type="submit">Actualizar Tabla</button>
-</form>
-
-<br>
-<div id="filteredTransactionsContainer" style="display:none;">
-    <h2>Transacciones Filtradas</h2>
-    <table id="filteredTransactionsTable">
+    <h2>Últimas 10 Transacciones</h2>
+    <table id="latestTransactionsTable">
         <thead>
         <tr>
             <th>Fecha</th>
@@ -74,12 +23,54 @@
             <th>Descripción</th>
         </tr>
         </thead>
-        <tbody id="filteredTransactionsTableBody">
+        <tbody id="latestTransactionsTableBody">
+        <tr><td colspan="5">Cargando transacciones...</td></tr>
         </tbody>
     </table>
-</div>
 
-<br>
-<button onclick="window.location.href='transaction_management.html'">Volver a Gestión</button>
+    <h2>Filtrar Transacciones</h2>
+    <form id="filterDashboardForm" class="filter-form"> <div class="form-group">
+        <label for="type">Tipo:</label>
+        <select id="type" name="type">
+            <option value="ALL">Todas</option>
+            <option value="INCOME">Ingreso</option>
+            <option value="EXPENSE">Gasto</option>
+        </select>
+    </div>
+
+        <div class="form-group">
+            <label for="startDate">Fecha Inicial:</label>
+            <input type="date" id="startDate" name="startDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">Fecha Final:</label>
+            <input type="date" id="endDate" name="endDate" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar Tabla</button>
+    </form>
+
+    <div id="filteredTransactionsContainer" style="display:none;">
+        <h2>Transacciones Filtradas</h2>
+        <table id="filteredTransactionsTable">
+            <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Cantidad (€)</th>
+                <th>Categoría</th>
+                <th>Descripción</th>
+            </tr>
+            </thead>
+            <tbody id="filteredTransactionsTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="return-button-container">
+        <button class="btn btn-secondary" onclick="window.location.href='transaction_management.html'">Volver a Gestión</button>
+    </div>
+</div>
 </body>
 </html>

@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const percentageGainLossDisplay = document.getElementById('percentageGainLossDisplay');
 
     // Función para mostrar mensajes en la UI
-    const showMessage = (message, type) => {
+    // Utiliza las clases 'message success' y 'message error' definidas en styles.css
+    const showMessage = (message, type) => { // 'type' puede ser 'success' o 'error'
         messageDisplay.textContent = message;
         messageDisplay.className = `message ${type}`;
         messageDisplay.style.display = 'block';
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideMessage = () => {
         messageDisplay.style.display = 'none';
         messageDisplay.textContent = '';
-        messageDisplay.className = 'message';
+        messageDisplay.className = 'message'; // Resetear a solo la clase base 'message'
     };
 
     // Función para actualizar la sección de resumen
@@ -60,11 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                credentials: 'include' // Asegúrate de incluir las credenciales para la sesión
+            });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                showMessage(`Error: ${errorData.error || response.statusText}`, 'error');
+                showMessage(`Error: ${errorData.error || response.statusText}`, 'error'); // Pasa 'error' como tipo
                 salesTableBody.innerHTML = '<tr><td colspan="5">Error al cargar las ventas.</td></tr>';
                 updateSummary(0, 0); // Resetear totales en caso de error
                 return;
@@ -88,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (Array.isArray(data.sales)) { // Si es un UserSalesSummaryDTO válido con lista de ventas
                 sales = data.sales;
                 totalGainLoss = data.totalGainLoss;
-                percentageGainLoss = data.percentageGainLoss;
+                percentageGainLoss = data.percentageGainLoss; // Propiedad original
                 displayMessage = sales.length > 0 ? `Se encontraron ${sales.length} ventas.` : 'No se encontraron ventas.';
             } else {
                 // Caso inesperado o si no se encontraron ventas pero no vino 'message'
@@ -99,6 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSummary(totalGainLoss, percentageGainLoss);
 
             // Mostrar el mensaje en el área de mensajes
+            // Se asume 'success' para mensajes de información o resultados válidos (incluso si están vacíos)
+            // Solo 'error' si realmente hubo un problema en el fetch o el servidor devolvió un error explícito.
             showMessage(displayMessage, 'success');
 
             // Rellenar la tabla de ventas
@@ -115,12 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     gainLossCell.className = gainLoss >= 0 ? 'profit' : 'loss'; // Aplicar color por venta
                 });
             } else {
-                salesTableBody.innerHTML = '<tr><td colspan="5">No hay ventas para mostrar.</td></tr>';
+                const row = salesTableBody.insertRow();
+                const cell = row.insertCell(0);
+                cell.colSpan = 5;
+                cell.textContent = displayMessage; // Mostrar el mensaje directamente en la tabla si no hay ventas
+                cell.style.textAlign = 'center';
             }
 
         } catch (error) {
             console.error('Error al obtener el historial de ventas:', error);
-            showMessage('Error al conectar con el servidor o procesar los datos.', 'error');
+            showMessage('Error al conectar con el servidor o procesar los datos.', 'error'); // Pasa 'error' como tipo
             salesTableBody.innerHTML = '<tr><td colspan="5">Error al cargar las ventas.</td></tr>';
             updateSummary(0, 0); // Resetear totales en caso de error
         }
@@ -128,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners ---
 
-    // Cargar las últimas 10 ventas al cargar la página inicialmente
+    // Cargar las ventas al cargar la página inicialmente
     fetchAndDisplaySales();
 
     // Listener para el botón "Actualizar Tabla"
@@ -138,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tickerInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            fetchAndDisplaySales();
+            filterButton.click(); // Simular clic en el botón de filtro
         }
     });
 
@@ -146,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sellDateInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            fetchAndDisplaySales();
+            filterButton.click(); // Simular clic en el botón de filtro
         }
     });
 });

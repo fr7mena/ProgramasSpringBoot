@@ -2,100 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Acciones</title>
+    <link rel="stylesheet" href="../css/styles.css">               <!-- CSS Base -->
+    <link rel="stylesheet" href="displaying_Stocks.css">          <!-- CSS Específico de esta página -->
     <script defer src="displaying_Stocks.js"></script>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        #messageDisplay {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            display: none;
-        }
-        form {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-        }
-        form label {
-            margin-bottom: 5px;
-        }
-        form input {
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        form button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 10px;
-        }
-        form button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
-<h1>Dashboard de Acciones</h1>
+<div class="container"> <!-- Contenedor principal -->
+    <h1>Dashboard de Acciones</h1>
 
-<div id="totalInvestedContainer">
-    <h2>Total Invertido: <span id="currentTotalInvested">Cargando...</span> €</h2>
-</div>
+    <div id="totalInvestedContainer" class="summary-section"> <!-- Usar summary-section del base -->
+        <h2>Total Invertido: <span id="currentTotalInvested">Cargando...</span> €</h2>
+    </div>
 
-<h2>Últimas 10 Acciones Compradas</h2>
-<table id="latestStocksTable">
-    <thead>
-    <tr>
-        <th>Ticker</th>
-        <th>Precio de Compra (€)</th>
-        <th>Cantidad</th>
-        <th>Fecha de Compra</th>
-    </tr>
-    </thead>
-    <tbody id="latestStocksTableBody">
-    <tr><td colspan="4">Cargando acciones...</td></tr>
-    </tbody>
-</table>
-
-<h2>Filtrar Acciones</h2>
-<form id="filterStocksForm">
-    <label for="tickerFilter">Ticker:</label>
-    <input type="text" id="tickerFilter" name="tickerFilter"><br><br>
-
-    <label for="purchaseDateFilter">Fecha de Compra:</label>
-    <input type="date" id="purchaseDateFilter" name="purchaseDateFilter"><br><br>
-
-    <button type="submit">Actualizar Tabla</button>
-</form>
-
-<br>
-<div id="filteredStocksContainer" style="display:none;">
-    <h2>Acciones Filtradas</h2>
-    <table id="filteredStocksTable">
+    <h2>Últimas 10 Acciones Compradas</h2>
+    <table id="latestStocksTable">
         <thead>
         <tr>
             <th>Ticker</th>
@@ -104,14 +26,45 @@
             <th>Fecha de Compra</th>
         </tr>
         </thead>
-        <tbody id="filteredStocksTableBody">
+        <tbody id="latestStocksTableBody">
+        <tr><td colspan="4">Cargando acciones...</td></tr>
         </tbody>
     </table>
+
+    <h2>Filtrar Acciones</h2>
+    <form id="filterStocksForm" class="filter-form"> <!-- Usar filter-form del base -->
+        <div class="form-group">
+            <label for="tickerFilter">Ticker:</label>
+            <input type="text" id="tickerFilter" name="tickerFilter" placeholder="Ej: GOOGL">
+        </div>
+
+        <div class="form-group">
+            <label for="purchaseDateFilter">Fecha de Compra:</label>
+            <input type="date" id="purchaseDateFilter" name="purchaseDateFilter">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar Tabla</button>
+    </form>
+
+    <div id="filteredStocksContainer" style="display:none;">
+        <h2>Acciones Filtradas</h2>
+        <table id="filteredStocksTable">
+            <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Precio de Compra (€)</th>
+                <th>Cantidad</th>
+                <th>Fecha de Compra</th>
+            </tr>
+            </thead>
+            <tbody id="filteredStocksTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="messageDisplay" class="message"></div> <!-- Mensajes de éxito/error -->
+
+    <a href="dashboard_stock.html" class="return-button">Volver a Gestión de Compra de Acciones</a>
 </div>
-
-<div id="messageDisplay"></div>
-
-<br>
-<button onclick="window.location.href='dashboard_stock.html'">Volver a Gestión de Compra de Acciones</button>
 </body>
 </html>

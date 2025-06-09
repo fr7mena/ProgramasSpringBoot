@@ -1,0 +1,30 @@
+/* src/main/resources/static/stock_management/displaying_Stocks.css */
+
+/* Estilos específicos para la sección "Total Invertido" */
+#totalInvestedContainer {
+    background-color: var(--info-color); /* Color de fondo informativo */
+    color: var(--text-color-light); /* Texto claro */
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+}
+
+#totalInvestedContainer h2 {
+    color: var(--text-color-light); /* Color del título dentro del contenedor */
+    margin-bottom: 0;
+}
+
+#currentTotalInvested {
+    font-size: 1.5em; /* Tamaño de fuente más grande para el valor */
+    font-weight: bold;
+}
+
+/* Estilos para la tabla de últimas acciones (si necesitas algo más allá del base) */
+#latestStocksTable {
+    /* Puedes añadir reglas aquí si quieres diferenciarla de filteredStocksTable */
+}
+
+/* Estilos para el formulario de filtrado (ya cubierto por .filter-form en styles.css) */
+/* Sin necesidad de reglas específicas aquí a menos que quieras anular o añadir algo */
