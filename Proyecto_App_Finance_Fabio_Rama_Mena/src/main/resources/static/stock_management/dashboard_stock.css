@@ -7,12 +7,28 @@
     gap: 15px; /* Espacio entre los botones */
     flex-wrap: wrap; /* Permitir que los botones se envuelvan en pantallas pequeñas */
     justify-content: center; /* Centrar los botones */
+    margin-bottom: 30px; /* Añadir margen inferior para separar del botón de volver */
 }
 
 .button-container .btn {
     min-width: 200px; /* Ancho mínimo para que los botones no sean demasiado pequeños */
     font-size: 1.1em;
 }
+
+/* Estilos para centrar el botón "Volver al Dashboard Principal" */
+.return-dashboard-container {
+    text-align: center; /* Centra el contenido en línea (el botón 'a') */
+    margin-top: 20px; /* Espacio superior para separarlo de los botones de acción */
+}
+
+.return-dashboard-container .btn-secondary {
+    /* Si necesitas ajustar el tamaño o padding específico para este botón */
+    padding: 10px 20px; /* Ejemplo: ajustar el padding */
+    display: inline-block; /* Asegura que el 'a' se comporte como un bloque en línea para aplicar padding y centrado */
+    width: fit-content; /* Ajusta el ancho al contenido del texto */
+    max-width: 250px; /* Opcional: limitar el ancho máximo del botón */
+}
+
 
 @media (max-width: 600px) {
     .button-container {
@@ -21,5 +37,9 @@
     }
     .button-container .btn {
         width: 100%; /* Ocupar todo el ancho disponible al apilar */
+    }
+    .return-dashboard-container .btn-secondary {
+        width: 100%; /* Ocupar todo el ancho disponible en pantallas pequeñas */
+        max-width: none;
     }
 }
